@@ -1,0 +1,34 @@
+{
+  "agent": "Daily Pre-Read Analysis",
+  "description": "Three scheduled agents that prepare MBA class pre-read analyses every evening.",
+  "patternsLegend": {
+    "scheduled-autonomy": "Runs on a cron trigger with no human action",
+    "tool-use": "Calls external tools (Calendar / Drive / Gmail) via MCP",
+    "rag": "Retrieves the real pre-read from Drive before generating",
+    "planning": "Decomposes the task: filter -> map -> find -> generate",
+    "multi-agent": "Work split round-robin across 3 staggered runs",
+    "idempotency": "Skips creating a doc that already exists for the day",
+    "human-in-the-loop": "Produces Gmail drafts, never auto-sends"
+  },
+  "runs": [
+    {
+      "targetDate": "2026-06-09",
+      "firedAt": "2026-06-08T09:59:00Z",
+      "run": "test-fire (pre-split, single routine)",
+      "model": "claude-sonnet-4-6",
+      "status": "success",
+      "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "idempotency", "human-in-the-loop"],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "6",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Module Note - Systems Thinking (HBS 322-030)",
+          "docCreated": "reused existing (idempotency)",
+          "draftCreated": true
+        }
+      ],
+      "notes": "Confirmed the remote agent can reach all 3 Google connectors unattended."
+    }
+  ]
+}
