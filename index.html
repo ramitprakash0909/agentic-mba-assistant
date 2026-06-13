@@ -66,6 +66,9 @@
        background:rgba(63,185,80,.12);color:var(--green);border:1px solid rgba(63,185,80,.4);
        text-decoration:none;font-weight:600}
   .analysis-link:hover{background:rgba(63,185,80,.22)}
+  .hcard{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:14px}
+  .hcard .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .hcard .ht{font-size:13px;color:var(--muted);margin-bottom:4px}
   .patterns{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
   .ptag{font-size:11px;padding:2px 9px;border-radius:6px;background:#bc8cff22;color:var(--purple);border:1px solid #bc8cff44}
   .notes{margin-top:12px;color:var(--muted);font-size:13px;font-style:italic}
@@ -190,6 +193,9 @@
   <div class="chips" id="chips"></div>
   <div class="filters" id="filters"></div>
   <div id="runs" style="margin-top:14px"><div class="empty">Loading runs…</div></div>
+
+  <h2>Handout analyses <span style="text-transform:none;letter-spacing:0;font-weight:400">— on-demand breakdowns of classroom slide decks</span></h2>
+  <div id="handouts" style="margin-top:14px"><div class="empty">Loading…</div></div>
 
   <footer>
     Built by directing Claude Code · brain = Claude (Pro) · log + hosting = GitHub (free).<br/>
@@ -324,7 +330,7 @@ function animateFlow(){
 
 // interaction state
 const state = { course:null, pattern:null, source:null, day:null,
-                search:'', sort:'date', flowRunId:null, open:new Set(), data:null };
+                search:'', sort:'date', flowRunId:null, open:new Set(), data:null, handouts:null };
 
 fetch('./data/run-log.json')
   .then(r => r.json())
@@ -333,6 +339,11 @@ fetch('./data/run-log.json')
     document.getElementById('runs').innerHTML =
       '<div class="empty">Could not load run-log.json — ' + e + '</div>';
   });
+
+fetch('./data/handouts.json')
+  .then(r => r.json())
+  .then(d => { state.handouts = d; renderHandouts(); })
+  .catch(() => { document.getElementById('handouts').innerHTML = '<div class="empty">No handout analyses yet.</div>'; });
 
 function allRuns(){ return (state.data.runs || []).slice().reverse(); } // newest first
 function coursesOf(run){ return [...new Set((run.sessions||[]).map(s => s.course))]; }
@@ -529,6 +540,23 @@ function renderRuns(){
     el.innerHTML = `<div class="dhead" style="font-size:13px;font-weight:400;color:var(--muted)">${runs.length} run${runs.length===1?'':'s'} · sorted by ${state.sort}</div>`
       + runs.map(runCard).join('');
   }
+}
+
+function renderHandouts(){
+  const el = document.getElementById('handouts'); if (!el) return;
+  const items = (state.handouts && state.handouts.items) || [];
+  if (!items.length){ el.innerHTML = '<div class="empty">No handout analyses yet — ask the Handout Analysis Agent to create one.</div>'; return; }
+  el.innerHTML = items.slice().reverse().map(it => `
+    <div class="hcard">
+      <div class="top">
+        <span class="run-date">${it.course || 'Handout'}</span>
+        ${it.sessionsCovered ? `<span class="chip">covers ${it.sessionsCovered}</span>` : ''}
+        ${it.date ? `<span class="chip">${fmtDate(it.date)}</span>` : ''}
+      </div>
+      ${it.handoutTitle ? `<div class="ht">📑 ${it.handoutTitle}</div>` : ''}
+      ${it.summary ? `<div class="notes">${it.summary}</div>` : ''}
+      ${it.docUrl ? `<div><a class="analysis-link" href="${it.docUrl}" target="_blank" rel="noopener">Open handout analysis ↗</a></div>` : ''}
+    </div>`).join('');
 }
 
 // event delegation
