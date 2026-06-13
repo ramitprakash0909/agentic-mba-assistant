@@ -96,10 +96,40 @@
   .replay{margin-top:12px;font-size:13px;padding:6px 15px;border-radius:8px;background:var(--accent);
           color:#0d1117;border:none;cursor:pointer;font-weight:600}
   .replay:hover{filter:brightness(1.08)}
+  /* charts */
+  .charts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .chartcard{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .chart-t{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+  .actstrip{display:flex;align-items:flex-end;gap:4px;height:66px;overflow-x:auto;padding-bottom:2px}
+  .actcol{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex:0 0 auto}
+  .actbar{width:15px;background:var(--accent);border-radius:3px 3px 0 0;opacity:.6;transition:.15s}
+  .actcol:hover .actbar{opacity:1}
+  .actcol.active .actbar{opacity:1;background:var(--green)}
+  .actlbl{font-size:10px;color:var(--muted)}
+  .donutwrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .dlegend{display:flex;flex-direction:column;gap:6px}
+  .dleg{font-size:12px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:7px}
+  .dleg.on{color:var(--text);font-weight:600}
+  .dleg .sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:0 0 auto}
+  .dleg b{color:var(--text)}
+  /* controls / chips / run-picker */
+  .controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+  .search{flex:1;min-width:200px;background:var(--panel);border:1px solid var(--border);color:var(--text);
+          border-radius:8px;padding:8px 12px;font-size:13px}
+  .search:focus{outline:none;border-color:var(--accent)}
+  .sortbtns{display:flex;gap:6px;align-items:center}
+  .sortlbl{font-size:12px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+  .achip{font-size:12px;padding:3px 10px;border-radius:20px;background:#1f6feb22;color:var(--accent);
+         border:1px solid #1f6feb44;cursor:pointer}
+  .achip.clearall{background:transparent;color:var(--muted);border-color:var(--border)}
+  .flowctrls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+  .runpick{background:var(--bg);border:1px solid var(--border);color:var(--text);border-radius:8px;
+           padding:6px 10px;font-size:13px;max-width:100%}
   .empty{color:var(--muted);padding:28px;text-align:center}
   footer{margin-top:48px;color:var(--muted);font-size:13px;text-align:center;line-height:1.7}
   a{color:var(--accent)}
-  @media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -118,13 +148,41 @@
     <div class="flow" id="flowrow"></div>
     <div class="callout" id="callout" style="display:none"></div>
     <div class="flowstatus" id="flowstatus">▶ Press “Replay a run” to watch the agent work, step by step.</div>
-    <button class="replay" id="replay">▶ Replay a run</button>
+    <div class="flowctrls">
+      <button class="replay" id="replay">▶ Replay a run</button>
+      <select id="runpick" class="runpick" title="Choose which real run to replay"></select>
+    </div>
   </div>
 
   <h2>Agentic patterns in play <span style="text-transform:none;letter-spacing:0;font-weight:400">— click to filter</span></h2>
   <div class="legend" id="legend"></div>
 
-  <h2>Agent run log <span style="text-transform:none;letter-spacing:0;font-weight:400">— click a run to expand</span></h2>
+  <h2>Activity &amp; sources <span style="text-transform:none;letter-spacing:0;font-weight:400">— click to filter</span></h2>
+  <div class="charts">
+    <div class="chartcard">
+      <div class="chart-t">Runs per day</div>
+      <div class="actstrip" id="activity"></div>
+    </div>
+    <div class="chartcard">
+      <div class="chart-t">Pre-read sources</div>
+      <div class="donutwrap">
+        <svg id="donut" viewBox="0 0 120 120" width="120" height="120"></svg>
+        <div class="dlegend" id="dlegend"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Agent run log <span style="text-transform:none;letter-spacing:0;font-weight:400">— search, sort, filter, click to expand</span></h2>
+  <div class="controls">
+    <input id="search" class="search" placeholder="Search runs (course, pre-read, keyword)…" />
+    <div class="sortbtns">
+      <span class="sortlbl">sort:</span>
+      <button class="fbtn sort active" data-sort="date">date</button>
+      <button class="fbtn sort" data-sort="course">course</button>
+      <button class="fbtn sort" data-sort="status">status</button>
+    </div>
+  </div>
+  <div class="chips" id="chips"></div>
   <div class="filters" id="filters"></div>
   <div id="runs" style="margin-top:14px"><div class="empty">Loading runs…</div></div>
 
@@ -169,7 +227,23 @@ const STAGES = [
 const truncate = (s,n) => (s && s.length>n) ? s.slice(0,n-1)+'…' : (s||'');
 let flowTimer = null;
 
-function flowRun(){ return allRuns().find(r => (r.sessions||[]).length) || allRuns()[0]; }
+function flowRun(){
+  if (state.flowRunId){
+    const m = allRuns().find(r => ((r.firedAt||'')+(r.run||'')) === state.flowRunId);
+    if (m) return m;
+  }
+  return allRuns().find(r => (r.sessions||[]).length) || allRuns()[0];
+}
+function renderRunPicker(){
+  const sel = document.getElementById('runpick');
+  if (!sel) return;
+  const runs = allRuns().filter(r => (r.sessions||[]).length);
+  sel.innerHTML = runs.map(r => {
+    const id = (r.firedAt||'') + (r.run||'');
+    const label = `${fmtDate(r.targetDate)} · ${r.run||'Run'} · ${truncate(coursesOf(r)[0]||'',22)}`;
+    return `<option value="${encodeURIComponent(id)}" ${state.flowRunId===id?'selected':''}>${label}</option>`;
+  }).join('');
+}
 
 function stageCaption(i, run){
   const s = (run && (run.sessions||[])[0]) || {};
@@ -244,7 +318,8 @@ function animateFlow(){
 }
 
 // interaction state
-const state = { course:null, pattern:null, open:new Set(), data:null };
+const state = { course:null, pattern:null, source:null, day:null,
+                search:'', sort:'date', flowRunId:null, open:new Set(), data:null };
 
 fetch('./data/run-log.json')
   .then(r => r.json())
@@ -257,19 +332,101 @@ fetch('./data/run-log.json')
 function allRuns(){ return (state.data.runs || []).slice().reverse(); } // newest first
 function coursesOf(run){ return [...new Set((run.sessions||[]).map(s => s.course))]; }
 
+function runMatches(r, q){
+  const hay = [r.run, r.targetDate, r.model, r.notes,
+    ...(r.sessions||[]).flatMap(s => [s.course, s.preReadTitle, s.preReadSource, s.session])]
+    .join(' ').toLowerCase();
+  return hay.includes(q);
+}
+function sortRuns(rs, key){
+  const a = rs.slice();
+  if (key === 'course')      a.sort((x,y) => (coursesOf(x)[0]||'~').localeCompare(coursesOf(y)[0]||'~'));
+  else if (key === 'status') a.sort((x,y) => (x.status||'').localeCompare(y.status||''));
+  return a; // 'date' keeps the newest-first order from allRuns()
+}
 function visibleRuns(){
-  return allRuns().filter(run => {
-    if (state.course && !coursesOf(run).includes(state.course)) return false;
+  const rs = allRuns().filter(run => {
+    if (state.course  && !coursesOf(run).includes(state.course)) return false;
     if (state.pattern && !(run.patterns||[]).includes(state.pattern)) return false;
+    if (state.source  && !(run.sessions||[]).some(s => (s.preReadSource||'none') === state.source)) return false;
+    if (state.day     && run.targetDate !== state.day) return false;
+    if (state.search  && !runMatches(run, state.search)) return false;
     return true;
   });
+  return sortRuns(rs, state.sort);
+}
+
+function srcColor(k){
+  return ({ 'drive-file':'#3fb950', 'published-fallback':'#d29922', 'film':'#bc8cff', 'none':'#6e7681' })[k] || '#58a6ff';
+}
+
+function renderActivity(){
+  const el = document.getElementById('activity'); if (!el) return;
+  const counts = {};
+  allRuns().forEach(r => { const d = r.targetDate || '—'; counts[d] = (counts[d]||0) + 1; });
+  const dates = Object.keys(counts).sort();
+  const max = Math.max(1, ...Object.values(counts));
+  el.innerHTML = dates.map(d => {
+    const h = 8 + Math.round((counts[d]/max) * 46);
+    const day = (d.split('-')[2]||'').replace(/^0/,'');
+    return `<div class="actcol ${state.day===d?'active':''}" data-day="${d}" title="${fmtDate(d)} · ${counts[d]} run${counts[d]===1?'':'s'}">
+        <div class="actbar" style="height:${h}px"></div><div class="actlbl">${day}</div></div>`;
+  }).join('');
+}
+
+function renderSource(){
+  const svg = document.getElementById('donut'); if (!svg) return;
+  const counts = {};
+  allRuns().forEach(r => (r.sessions||[]).forEach(s => {
+    const k = s.preReadSource || 'none'; counts[k] = (counts[k]||0) + 1;
+  }));
+  const keys = Object.keys(counts);
+  const total = keys.reduce((n,k) => n + counts[k], 0) || 1;
+  const r = 46, C = 2*Math.PI*r; let off = 0;
+  svg.innerHTML = `<circle r="${r}" cx="60" cy="60" fill="none" stroke="#30363d" stroke-width="16"/>` +
+    keys.map(k => {
+      const len = (counts[k]/total) * C;
+      const dim = state.source && state.source !== k ? 'opacity:.3;' : '';
+      const arc = `<circle r="${r}" cx="60" cy="60" fill="none" stroke="${srcColor(k)}" stroke-width="${state.source===k?20:16}"
+        stroke-dasharray="${len.toFixed(2)} ${(C-len).toFixed(2)}" stroke-dashoffset="${(-off).toFixed(2)}"
+        transform="rotate(-90 60 60)" data-source="${k}" style="cursor:pointer;${dim}transition:.2s"/>`;
+      off += len; return arc;
+    }).join('') +
+    `<text x="60" y="56" text-anchor="middle" fill="#e6edf3" font-size="20" font-weight="700">${total}</text>
+     <text x="60" y="73" text-anchor="middle" fill="#8b949e" font-size="9">pre-reads</text>`;
+  document.getElementById('dlegend').innerHTML = keys.map(k =>
+    `<div class="dleg ${state.source===k?'on':''}" data-source="${k}"><span class="sw" style="background:${srcColor(k)}"></span>${k} <b>${counts[k]}</b></div>`
+  ).join('');
+}
+
+function renderChips(){
+  const el = document.getElementById('chips'); if (!el) return;
+  const items = [];
+  if (state.day)     items.push(['day',     `date: ${fmtDate(state.day)}`]);
+  if (state.course)  items.push(['course',  `course: ${state.course}`]);
+  if (state.pattern) items.push(['pattern', `pattern: ${pretty(state.pattern)}`]);
+  if (state.source)  items.push(['source',  `source: ${state.source}`]);
+  if (state.search)  items.push(['search',  `search: "${state.search}"`]);
+  el.innerHTML = items.length
+    ? items.map(([k,l]) => `<span class="achip" data-clear="${k}">${l} ✕</span>`).join('')
+      + `<span class="achip clearall" data-clear="all">Clear all</span>`
+    : '';
+}
+
+function refresh(){
+  renderActivity(); renderSource(); renderChips();
+  renderLegend(); renderFilters(); renderRuns();
 }
 
 function renderAll(){
   renderStats();
   renderFlow();
+  renderRunPicker();
+  renderActivity();
+  renderSource();
   renderLegend();
   renderFilters();
+  renderChips();
   renderRuns();
 }
 
@@ -306,66 +463,72 @@ function renderFilters(){
   document.getElementById('filters').innerHTML = btns.join('');
 }
 
+function runCard(run){
+  const id = (run.firedAt||'') + (run.run||'');
+  const isOpen = state.open.has(id);
+  const courses = coursesOf(run);
+  const status = run.status || 'success';
+  const n = (run.sessions||[]).length;
+  const summary = n
+    ? `<span class="chip">${n} session${n===1?'':'s'}</span>`
+      + courses.slice(0,3).map(c => `<span class="chip">${c}</span>`).join('')
+      + (courses.length>3 ? `<span class="chip">+${courses.length-3}</span>` : '')
+    : `<span class="chip amber">no sessions · load split</span>`;
+  return `
+  <div class="run ${isOpen?'open':''}">
+    <div class="run-head" data-id="${encodeURIComponent(id)}">
+      <div class="left">
+        <span class="chev">▶</span>
+        <span class="run-date">${run.run || 'Run'}</span>
+        ${state.sort!=='date' ? `<span class="chip">${fmtDate(run.targetDate)}</span>` : ''}
+        ${summary}
+      </div>
+      <span class="status ${status}">${status}</span>
+    </div>
+    <div class="run-body">
+      <div class="run-meta">fired ${run.firedAt||''} · ${run.model||''}</div>
+      ${n ? (run.sessions||[]).map(s => `
+        <div class="session">
+          <div class="c">${s.course} <span class="d">— ${sessionLabel(s.session)}</span></div>
+          <div class="d">
+            <span class="src ${s.preReadSource}">${s.preReadSource||'—'}</span>
+            ${s.preReadTitle ? '· ' + s.preReadTitle : ''}
+          </div>
+          <div class="d">doc: ${s.docCreated||'—'} · draft: ${s.draftCreated ? '✓ created' : '—'}</div>
+        </div>`).join('')
+      : `<div class="d" style="margin-top:10px">No sessions assigned — this run's round-robin slot was empty (fewer classes than runs). The agent self-tested its connectors and exited cleanly.</div>`}
+      <div class="patterns">${(run.patterns||[]).map(p => `<span class="ptag">${pretty(p)}</span>`).join('')}</div>
+      ${run.notes ? `<div class="notes">${run.notes}</div>` : ''}
+    </div>
+  </div>`;
+}
+
 function renderRuns(){
   const runs = visibleRuns();
   const el = document.getElementById('runs');
-  if (!runs.length){ el.innerHTML = '<div class="empty">No runs match this filter.</div>'; return; }
+  if (!runs.length){ el.innerHTML = '<div class="empty">No runs match these filters.</div>'; return; }
 
-  // group by target date, preserving newest-first order
-  const groups = [], idx = {};
-  runs.forEach(run => {
-    const d = run.targetDate || '—';
-    if (!(d in idx)){ idx[d] = groups.length; groups.push({ date:d, items:[] }); }
-    groups[idx[d]].items.push(run);
-  });
-
-  el.innerHTML = groups.map(g => {
-    const header = `<div class="dhead">📅 ${fmtDate(g.date)} <span class="dcount">${g.items.length} run${g.items.length===1?'':'s'}</span></div>`;
-    const cards = g.items.map(run => {
-      const id = (run.firedAt||'') + (run.run||'');
-      const isOpen = state.open.has(id);
-      const courses = coursesOf(run);
-      const status = run.status || 'success';
-      const n = (run.sessions||[]).length;
-      const summary = n
-        ? `<span class="chip">${n} session${n===1?'':'s'}</span>`
-          + courses.slice(0,3).map(c => `<span class="chip">${c}</span>`).join('')
-          + (courses.length>3 ? `<span class="chip">+${courses.length-3}</span>` : '')
-        : `<span class="chip amber">no sessions · load split</span>`;
-      return `
-      <div class="run ${isOpen?'open':''}">
-        <div class="run-head" data-id="${encodeURIComponent(id)}">
-          <div class="left">
-            <span class="chev">▶</span>
-            <span class="run-date">${run.run || 'Run'}</span>
-            ${summary}
-          </div>
-          <span class="status ${status}">${status}</span>
-        </div>
-        <div class="run-body">
-          <div class="run-meta">fired ${run.firedAt||''} · ${run.model||''}</div>
-          ${n ? (run.sessions||[]).map(s => `
-            <div class="session">
-              <div class="c">${s.course} <span class="d">— ${sessionLabel(s.session)}</span></div>
-              <div class="d">
-                <span class="src ${s.preReadSource}">${s.preReadSource||'—'}</span>
-                ${s.preReadTitle ? '· ' + s.preReadTitle : ''}
-              </div>
-              <div class="d">doc: ${s.docCreated||'—'} · draft: ${s.draftCreated ? '✓ created' : '—'}</div>
-            </div>`).join('')
-          : `<div class="d" style="margin-top:10px">No sessions assigned — this run's round-robin slot was empty (fewer classes than runs). The agent self-tested its connectors and exited cleanly.</div>`}
-          <div class="patterns">${(run.patterns||[]).map(p => `<span class="ptag">${pretty(p)}</span>`).join('')}</div>
-          ${run.notes ? `<div class="notes">${run.notes}</div>` : ''}
-        </div>
-      </div>`;
-    }).join('');
-    return header + cards;
-  }).join('');
+  if (state.sort === 'date'){
+    const groups = [], idx = {};
+    runs.forEach(run => {
+      const d = run.targetDate || '—';
+      if (!(d in idx)){ idx[d] = groups.length; groups.push({ date:d, items:[] }); }
+      groups[idx[d]].items.push(run);
+    });
+    el.innerHTML = groups.map(g =>
+      `<div class="dhead">📅 ${fmtDate(g.date)} <span class="dcount">${g.items.length} run${g.items.length===1?'':'s'}</span></div>`
+      + g.items.map(runCard).join('')
+    ).join('');
+  } else {
+    el.innerHTML = `<div class="dhead" style="font-size:13px;font-weight:400;color:var(--muted)">${runs.length} run${runs.length===1?'':'s'} · sorted by ${state.sort}</div>`
+      + runs.map(runCard).join('');
+  }
 }
 
 // event delegation
 document.addEventListener('click', e => {
   if (e.target.closest('#replay')){ animateFlow(); return; }
+
   const head = e.target.closest('.run-head');
   if (head){
     const id = decodeURIComponent(head.dataset.id);
@@ -373,20 +536,45 @@ document.addEventListener('click', e => {
     renderRuns();
     return;
   }
+
+  const sb = e.target.closest('[data-sort]');
+  if (sb){
+    state.sort = sb.dataset.sort;
+    document.querySelectorAll('.sort').forEach(b => b.classList.toggle('active', b === sb));
+    renderRuns();
+    return;
+  }
+
+  const cc = e.target.closest('[data-clear]');
+  if (cc){
+    const k = cc.dataset.clear;
+    if (k === 'all'){ state.day = state.course = state.pattern = state.source = null; state.search = ''; }
+    else if (k === 'search'){ state.search = ''; }
+    else { state[k] = null; }
+    if (k === 'all' || k === 'search'){ const s = document.getElementById('search'); if (s) s.value = ''; }
+    refresh();
+    return;
+  }
+
+  const day = e.target.closest('[data-day]');
+  if (day){ state.day = (state.day === day.dataset.day) ? null : day.dataset.day; refresh(); return; }
+
+  const src = e.target.closest('[data-source]');
+  if (src){ state.source = (state.source === src.dataset.source) ? null : src.dataset.source; refresh(); return; }
+
   const tag = e.target.closest('[data-pattern]');
-  if (tag){
-    const p = tag.dataset.pattern;
-    state.pattern = (state.pattern === p) ? null : p;
-    renderLegend(); renderRuns();
-    return;
-  }
+  if (tag){ state.pattern = (state.pattern === tag.dataset.pattern) ? null : tag.dataset.pattern; refresh(); return; }
+
   const fbtn = e.target.closest('[data-course]');
-  if (fbtn){
-    const c = fbtn.dataset.course;
-    state.course = c || null;
-    renderFilters(); renderRuns();
-    return;
-  }
+  if (fbtn){ state.course = fbtn.dataset.course || null; refresh(); return; }
+});
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'search'){ state.search = e.target.value.trim().toLowerCase(); renderChips(); renderRuns(); }
+});
+
+document.addEventListener('change', e => {
+  if (e.target.id === 'runpick'){ state.flowRunId = decodeURIComponent(e.target.value); animateFlow(); }
 });
 </script>
 </body>
