@@ -9,6 +9,15 @@
       "page": "data/handouts/2026-06-13-sdt-sessions-6-9.txt",
       "docUrl": "https://docs.google.com/document/d/1hj3MzVk7ps6XbdKVzIIgMgzMhNgjoTmsgXjeN41UTrA/edit",
       "summary": "Dr. Monika Gupta's System Dynamics deck: the SD modelling process, causal loop diagrams (polarity, reinforcing/balancing loops, delays), stocks & flows, one/two-stock models (oil & fishing economies), behaviour modes, system archetypes, policy resistance, and the 12 leverage points."
+    },
+    {
+      "date": "2026-06-13",
+      "course": "Systems and Design Thinking",
+      "sessionsCovered": "Sessions 1-5",
+      "handoutTitle": "Systems Thinking Session1-5.pdf",
+      "page": "data/handouts/2026-06-13-sdt-sessions-1-5.txt",
+      "docUrl": "https://docs.google.com/document/d/1lxESCeOS6K6LskZhyQpoj9DvnUtyktYFD_vKsoMqVqo/edit",
+      "summary": "Dr. Monika Gupta's intro deck: what a system is (elements/interconnections/purpose), emergence, self-organisation & hierarchy, resilience, system-constraint duality, autopoiesis & the Boulding system typology, the Iceberg model, and the WWF vs Greenpeace case (public goods, tragedy of the commons)."
     }
   ]
 }

@@ -1,0 +1,63 @@
+SYSTEMS AND DESIGN THINKING — SESSIONS 1–5 — HANDOUT ANALYSIS
+Source: Class handout "Systems Thinking Session1-5.pdf" (Faculty: Dr. Monika Gupta, SPJIMR). A breakdown of the intro slide deck — the foundations the rest of the course (Sessions 6-9 modelling) builds on.
+
+A WORD BEFORE YOU START
+Sessions 1–5 are about learning to SEE the world as systems. The single mental shift the deck wants from you: stop asking "who/what is to blame for this event?" and start asking "what STRUCTURE of interconnected parts keeps producing this behaviour?" Once you internalise "structure drives behaviour," the iceberg, autopoiesis, resilience, and the WWF/Greenpeace case all click into place. Sessions 6-9 then give you the tools to model that structure.
+
+(1) THE 30-SECOND BRIEF
+A system = elements + interconnections + a function/purpose. The whole is greater than the sum of its parts (synergy/emergence). Systems cause their own behaviour, so the same structure keeps generating the same patterns — and our linear, short-term, "not my fault" thinking creates unintended consequences, delays, and policy resistance. The course's signature tool is the ICEBERG model (events -> patterns -> structure -> mental models): the deeper you go, the more leverage you have. Managers, said Ackoff, don't solve isolated problems — they "manage messes."
+
+(2) WHY A SYSTEMS LENS — "MANAGERS MANAGE MESSES"
+Russell Ackoff's point: managers face dynamic, interacting webs of problems ("messes"), not independent puzzles. Reductionism (break it into parts) gave us science and computation, but it misses the "and" — the interconnections (the Sufi line: understanding "one" and "one" doesn't mean you understand "two," because you must also understand "and"). Systems thinking is COMPLEMENTARY to reductionism, not better — it's revealing. The quick-commerce example ("instant gratification, lasting damage") shows why: short-term optimisation produces second- and third-order environmental costs.
+
+(3) WHAT IS A SYSTEM — ELEMENTS, INTERCONNECTIONS, PURPOSE
+- ELEMENTS: the visible/tangible parts (students, professors, buildings) — but also INTANGIBLES (institute pride, brand value).
+- INTERCONNECTIONS: the relationships holding elements together — physical flows or INFORMATION flows (rules, standards).
+- FUNCTION/PURPOSE: usually unstated, deduced from how the system behaves — and it's the LEAST obvious yet MOST crucial determinant of behaviour.
+Change the interconnections or the purpose and you change the system (changing elements often matters least). Examples to know: digestive system, football team, mobile-payment system — each mapped to elements/interconnections/purpose. Key properties: systems are self-repairing, adaptive, goal-seeking.
+
+(4) EMERGENCE, SELF-ORGANISATION, HIERARCHY
+- "Greater than the sum of its parts" = emergence/synergy (body sub-systems, car sub-assemblies).
+- SELF-ORGANISATION: a system's capacity to make its own structure more complex (DNA -> all life; the agricultural revolution from one simple idea). It produces heterogeneity, novelty, unpredictability — and needs freedom and experimentation.
+- HIERARCHY: self-organising systems generate hierarchies, which give stability/resilience AND reduce how much information any part must track. Original purpose of a hierarchy = help its sub-systems do their jobs better. When a sub-system's goals dominate at the expense of the whole, you get SUBOPTIMISATION (a prime exam term).
+- Coordination WITHOUT a coordinator: starling murmurations, ant pheromone trails — emergence in action.
+
+(5) RESILIENCE (and its limits)
+Resilience = a system's ability to absorb disturbance and still keep its basic function and structure — "the capacity to change in order to maintain the same identity." It arises from a rich structure of feedback loops (the human body: fights invaders, tolerates temperature ranges, compensates for a missing kidney; a family coping with loss; ecosystems). Picture it as a PLATEAU you can wander across until you hit a dangerous edge where resilience collapses and the plateau shrinks. There are always limits to resilience. Social-ecological systems (e.g., the Koli fishing community) couple human + biophysical domains and change non-linearly.
+
+(6) CONSTRAINTS, AUTOPOIESIS & THE SYSTEM TYPOLOGY
+- SYSTEM-CONSTRAINT DUALITY: no system without a constraint. A chair becomes a chair when its legs' degrees of freedom are constrained. Constraints reduce parts' freedom but INCREASE the effectiveness of the whole (Theory of Constraints -> focus on the bottleneck). A GCC becomes a strategic capability centre when there are enough constraints for global coherence yet enough freedom for local innovation.
+- AUTOPOIESIS (self-production): living systems continually produce their own components and maintain identity while co-evolving with the environment (STRUCTURAL COUPLING); non-living (allopoietic) systems produce something other than themselves.
+- BOULDING/Mingers TYPOLOGY (Levels 1-9): frameworks -> clockworks -> cybernetic (thermostat) -> living cells -> multicellular -> animals -> humans (observing systems) -> SOCIAL SYSTEMS (Level 8: families, organisations) -> transcendental. Business organisations are Level 8 AUTOPOIETIC systems in the domain of ROLES: born/grow/mature/die, legal identity separate from people, and "relation-static, not component-static" (the Ship of Theseus point — components don't matter as long as roles/interactions hold). Innovation = "altered autopoiesis"; legacy firms struggle because of the tension between deviation-counteracting (negative) and deviation-amplifying (positive) feedback.
+
+(7) THE ICEBERG MODEL — the course's core tool
+Four levels, increasing leverage as you go deeper:
+- EVENTS (what just happened) — visible tip; reactive.
+- PATTERNS (trends over time) — what's been happening?
+- STRUCTURE (the interconnections/feedback causing the pattern) — why?
+- MENTAL MODELS (the beliefs/assumptions that hold the structure in place) — deepest leverage.
+"Structure generates patterns" — the oil-price headlines montage (drunk trader, OPEC, Trump, tankers) shows we obsess over EVENTS while the same underlying STRUCTURE keeps generating the swings. The Battle of Thermopylae (300) is the metaphor: one soldier isn't powerful; the SYSTEM — formation, training, discipline — multiplies power.
+
+(8) THE CASE — WWF vs GREENPEACE (and the economics)
+Two NGOs, same goal (a cleaner environment), opposite system designs:
+- WWF (1961): corporate funding, gradualist, works "inside the system," centralised/top-down, partners with Walmart/Google/Apple.
+- Greenpeace (1971): individual funding, single ambitious goals (Arctic Sanctuary), confrontational "outside the system," decentralised/bottom-up, refuses corporate money (the 2011 "Dirty Laundry" expose).
+Why these orgs exist is an economics story: the environment is a PUBLIC GOOD (non-excludable, non-rival) -> TRAGEDY OF THE COMMONS, the FREE-RIDER problem, and a country-vs-country PRISONER'S DILEMMA on lax vs stringent policy. Their "customers" are donors; the "product" is a promise of impact; success = funding + long-run mission. Related: Environmental Kuznets Curve, Ecological Footprint, the population <-> environment causal loops.
+
+(9) COME TO CLASS READY TO ANSWER
+- Decompose any system into elements / interconnections / purpose — and say which matters most.
+- Apply the ICEBERG to a headline or case (push from event -> structure -> mental model).
+- Explain suboptimisation, resilience (and its edge), and self-organisation with an example.
+- Argue why business organisations are Level-8 autopoietic systems (Ship of Theseus).
+- Use public-good / tragedy-of-commons / prisoner's-dilemma logic to explain why WWF & Greenpeace exist and how their structures differ.
+
+(10) HOW THIS FITS THE COURSE
+This is the conceptual foundation. Sessions 6-9 convert it into method: the iceberg's "structure" layer becomes causal loop diagrams and stock-and-flow models; "leverage points" get formalised (Meadows' 12); resilience/feedback become reinforcing & balancing loops. The named upcoming readings (Module Note - Systems Thinking HBR; Operational Systems Thinking, Darden UV5998; the St. Jude Childcare case) carry this forward.
+
+YOUR ENERGY-SECTOR ANGLE
+The deck literally uses oil-price headlines to show "structure generates patterns" — your home turf. Frame the energy transition as a public-good/tragedy-of-commons problem with prisoner's-dilemma dynamics between nations, and use the iceberg to push past "events" (a price spike, an outage) to the structures (capacity feedback, subsidy loops, policy resistance) and mental models (growth-at-all-costs) that generate them.
+
+(11) GLOSSARY
+System = elements + interconnections + purpose. Emergence = whole greater than parts. Self-organisation = a system increasing its own complexity. Suboptimisation = a part's goals beating the whole's. Resilience = absorb disturbance, keep identity. Autopoiesis = self-production; allopoietic = produces something other than itself. Structural coupling = system and environment co-adapting. Iceberg = events -> patterns -> structure -> mental models. Public good = non-excludable, non-rival. Tragedy of the commons = shared resource overused due to weak feedback. Policy resistance = actors' competing goals cancel out.
+
+Source: Built directly from the class slide deck (Dr. Monika Gupta), not a published article.
