@@ -69,6 +69,11 @@
   .hcard{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-bottom:14px}
   .hcard .top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
   .hcard .ht{font-size:13px;color:var(--muted);margin-bottom:4px}
+  .hactions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .analysis-link{font:inherit;cursor:pointer}
+  .hcontent{margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:8px;
+            padding:14px 16px;white-space:pre-wrap;font-size:13px;line-height:1.6;color:var(--text);
+            max-height:460px;overflow:auto}
   .patterns{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px}
   .ptag{font-size:11px;padding:2px 9px;border-radius:6px;background:#bc8cff22;color:var(--purple);border:1px solid #bc8cff44}
   .notes{margin-top:12px;color:var(--muted);font-size:13px;font-style:italic}
@@ -546,7 +551,7 @@ function renderHandouts(){
   const el = document.getElementById('handouts'); if (!el) return;
   const items = (state.handouts && state.handouts.items) || [];
   if (!items.length){ el.innerHTML = '<div class="empty">No handout analyses yet — ask the Handout Analysis Agent to create one.</div>'; return; }
-  el.innerHTML = items.slice().reverse().map(it => `
+  el.innerHTML = items.slice().reverse().map((it, idx) => `
     <div class="hcard">
       <div class="top">
         <span class="run-date">${it.course || 'Handout'}</span>
@@ -555,13 +560,30 @@ function renderHandouts(){
       </div>
       ${it.handoutTitle ? `<div class="ht">📑 ${it.handoutTitle}</div>` : ''}
       ${it.summary ? `<div class="notes">${it.summary}</div>` : ''}
-      ${it.docUrl ? `<div><a class="analysis-link" href="${it.docUrl}" target="_blank" rel="noopener">Open handout analysis ↗</a></div>` : ''}
+      <div class="hactions">
+        ${it.page ? `<button class="analysis-link" data-page="${it.page}" data-hid="${idx}">Read analysis ↓</button>` : ''}
+        ${it.docUrl ? `<a class="analysis-link" href="${it.docUrl}" target="_blank" rel="noopener">Open in Drive ↗</a>` : ''}
+      </div>
+      <div class="hcontent" id="hc-${idx}" style="display:none"></div>
     </div>`).join('');
 }
 
 // event delegation
 document.addEventListener('click', e => {
   if (e.target.closest('#replay')){ animateFlow(); return; }
+
+  const pg = e.target.closest('[data-page]');
+  if (pg){
+    const box = document.getElementById('hc-' + pg.dataset.hid);
+    if (box.style.display === 'block'){ box.style.display = 'none'; pg.textContent = 'Read analysis ↓'; return; }
+    if (box.dataset.loaded){ box.style.display = 'block'; pg.textContent = 'Hide analysis ↑'; return; }
+    pg.textContent = 'Loading…';
+    fetch('./' + pg.dataset.page)
+      .then(r => r.text())
+      .then(t => { box.textContent = t; box.dataset.loaded = '1'; box.style.display = 'block'; pg.textContent = 'Hide analysis ↑'; })
+      .catch(() => { box.textContent = 'Could not load the analysis.'; box.style.display = 'block'; pg.textContent = 'Read analysis ↓'; });
+    return;
+  }
 
   const head = e.target.closest('.run-head');
   if (head){

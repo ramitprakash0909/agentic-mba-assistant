@@ -1,0 +1,78 @@
+SYSTEMS AND DESIGN THINKING — SESSIONS 6–9 — HANDOUT ANALYSIS
+Source: Class handout "Systems Dynamics_Sessions 6-9.pdf" (Faculty: Dr. Monika Gupta, SPJIMR). A breakdown of the slide deck actually used in class — use it to consolidate what was taught and to prep for cold-calls and the quiz.
+
+A WORD BEFORE YOU START
+Sessions 1–5 taught you to SEE systems (the iceberg, mental models, the idea that structure drives behaviour). Sessions 6–9 hand you the toolkit to MODEL them. The whole arc of this deck is one sentence: "Articulate your mental model, expand it with feedback and delays, then test and improve it through simulation." Everything else — causal loop diagrams, stocks and flows, archetypes, leverage points — is machinery in service of that sentence.
+
+(1) THE 30-SECOND BRIEF
+System Dynamics (SD) is a way to model complex, dynamic, non-linear systems that ordinary statistics can't crack. You move from a fuzzy mental model -> a qualitative map (Causal Loop Diagram) -> a quantitative model (Stocks & Flows + equations) -> simulation you can test policies on. Two building blocks explain almost all behaviour: REINFORCING loops (amplify change -> growth or collapse) and BALANCING loops (resist change -> stability, or oscillation when delayed). Recurring "system archetypes" are just standard combinations of these loops. The punchline: structure causes behaviour, and the highest-value place to intervene (leverage) is rarely the obvious number.
+
+(2) WHY MODEL AT ALL — COMPLEX SYSTEMS & WICKED PROBLEMS
+A model is a simplification of reality that helps you define, analyse, and communicate. The deck contrasts a regression model (a STATIC snapshot at one point in time) with a SIMULATION model (captures dynamic change and feedback over time). Complex systems change over time and are non-linear (outputs not proportional to inputs), so you can't solve them by curve-fitting history. Simulation gives you a risk-free environment to experiment (the flight-simulator analogy), visualise dynamics, save time/money, and handle uncertainty. Mantra: "All models are wrong; some are useful."
+
+(3) THE SD MODELLING PROCESS (memorise these 6 steps)
+1. Problem Articulation — define the issue, key variables, time horizon, and SYSTEM BOUNDARY.
+2. Dynamic Hypothesis — propose the feedback/causal structure you think drives the behaviour.
+3. Formulation — turn it into a CLD, then a Stock & Flow model with equations.
+4. Testing — structure tests (logic, consistent units), behaviour tests (does it reproduce history?), sensitivity tests (+/-20% shocks).
+5. Policy Design & Evaluation — test scenarios before real-world execution.
+6. Implementation & Monitoring — pilot (A/B), track KPIs, feed real data back, refine.
+It is HIGHLY ITERATIVE: start with a broad boundary and a simple model, add detail only as the purpose demands. The worked example is "Customer Loyalty in E-commerce" (more marketing -> more customers -> service load up -> service quality down -> repeat orders down). Be ready to walk through it.
+
+(4) CAUSAL LOOP DIAGRAMS (CLDs) — the qualitative map
+A CLD is a simplified map of cause-and-effect links in a closed system. Each link has a POLARITY:
+- "+" : variables move in the SAME direction (Births + -> Population).
+- "-" : variables move in OPPOSITE directions (Deaths - -> Population; Price - -> Sales).
+Loops are either REINFORCING (R) or BALANCING (B). The guideline slides are prime cold-call material:
+- Every link must have an UNAMBIGUOUS polarity (never "it depends").
+- Use nouns/noun-phrases for variables; the ACTION lives in the arrows (Cost -> Price).
+- Keep naming positive/neutral (Costs - -> profits, not Costs + -> losses).
+- Make INTERMEDIATE links explicit (Sales -> Production volume -> Unit cost).
+- Capture CAUSATION, not correlation (ice-cream sales / drownings both driven by temperature).
+- Make goals explicit for balancing loops; mark DELAYS on links.
+
+(5) REINFORCING vs BALANCING — building blocks of behaviour
+- Reinforcing loops: self-enhancing; exponential growth OR runaway collapse; virtuous/vicious cycles.
+- Balancing loops: goal-seeking; a gap between desired and actual triggers corrective action (thermostat). Often invisible precisely because they're working.
+- Add a DELAY to a balancing loop and you get OSCILLATION. Key insight for 6–9: delays + balancing feedback + information asymmetry = oscillating systems.
+
+(6) STOCKS AND FLOWS — the quantitative backbone
+- STOCK: an accumulation (inventory, population, capital, cash, employees). "The memory of the history of changing flows." Freeze time and what you can measure is the stock.
+- FLOW: the rate that fills or drains a stock. Stock(t) = integral(Inflow - Outflow); rate of change = Inflow - Outflow.
+- Inflow > Outflow -> stock rises; Inflow = Outflow -> dynamic equilibrium.
+- Stocks change SLOWLY even when flows change suddenly, so they act as buffers and DECOUPLE inflow from outflow — the structural source of delay.
+- ENDOGENOUS variables are generated inside the system (sales, satisfaction, market share); EXOGENOUS come from outside (interest rates, regulation, fuel prices). Know examples for a firm, a GCC, and a supply chain.
+
+(7) ONE- AND TWO-STOCK SYSTEMS (the simulation stories)
+- One stock, 1R + 1B: the population model (birth = reinforcing, death = balancing) -> growth, decline, or stabilisation (S-curve). "Shifting dominance" of loops over time creates the dynamics. The capital/economy model shares this structure (investment vs depreciation).
+- One stock with delays: car-dealership inventory with perception, response, and delivery delays -> oscillation; shortening reaction time can WORSEN it. "Delays are powerful policy levers whose impact is poorly understood."
+- Two stocks — OIL economy (capital constrained by a NON-renewable resource): exponential growth, then falling yield-per-capital forces a peak (~year 40) and decline. "The faster you grow, the faster you fall." Limit to growth.
+- Two stocks — FISHING economy (capital constrained by a RENEWABLE resource): overshoot-to-equilibrium, overshoot+oscillation, or overshoot+COLLAPSE, depending on the regeneration threshold and the speed/strength of balancing feedback. Nonrenewable = stock-limited; renewable = flow-limited.
+
+(8) SYSTEM ARCHETYPES + POLICY RESISTANCE + LEVERAGE
+Archetypes are recurring loop combinations — best used PROACTIVELY:
+- Shifting the Burden — a symptomatic fix relieves the symptom but atrophies the fundamental solution.
+- Limits to Success/Growth — effort improves performance until a limit bites.
+- Success to the Successful — initial advantage compounds; outcome depends on starting conditions.
+- Tragedy of the Commons — shared resource, private benefit, shared cost, weak feedback -> overuse; fixes are collective (regulate, privatise, restore feedback).
+- Fixes that Fail — a quick fix whose side effects bring the problem back worse.
+- Policy Resistance — actors pulling a stock toward different goals cancel out (the flyover/induced-demand example). Opportunity: realign around a shared larger goal.
+Leverage points (Meadows), increasing power: numbers/parameters -> buffers -> stock-flow structure -> delays -> balancing loops -> reinforcing loops -> information flows -> rules -> self-organisation -> goals -> PARADIGMS -> power to transcend paradigms. Lesson: everyone pushes on numbers; real change comes from rules, goals, and mindsets.
+
+(9) COME TO CLASS READY TO ANSWER
+- Draw a CLD with correct polarities and name the R and B loops.
+- Explain WHY a delayed balancing loop oscillates (car dealership / supply chain / beer game).
+- Identify stocks vs flows in a described situation; classify variables as endo/exogenous.
+- Spot which archetype a mini-case illustrates and propose a leverage point (and why it's higher leverage than the obvious knob).
+- Reason about the oil and fishing two-stock stories (what causes the peak; what tips fishing into collapse).
+
+(10) HOW THIS FITS THE COURSE
+The bridge from "systems thinking as a worldview" (1–5: iceberg, mental models) to "systems modelling as a discipline" (6–9: CLDs -> stocks/flows -> simulation -> leverage). Sets up the integrative case work and the lab on system analysis of projects.
+
+YOUR ENERGY-SECTOR ANGLE
+The oil two-stock model fits you directly: capital (rigs/refineries) growing on a non-renewable resource, peaking, then declining as yield-per-capital falls — a clean lens on depletion, stranded assets, and reinvesting fossil profits into renewables (swap the non-renewable stock for a flow-limited renewable one). The fishing/collapse logic maps onto groundwater, grid capacity, and subsidy-driven demand.
+
+(11) GLOSSARY
+Stock = accumulation (memory of past flows). Flow = rate filling/draining a stock. CLD = causal loop diagram. R loop = reinforcing/positive feedback. B loop = balancing/negative feedback. Delay = lag between cause and effect; source of oscillation. Endogenous = generated inside the system; Exogenous = external input. Archetype = recurring loop structure. Leverage point = place to intervene. Dynamic equilibrium = inflow equals outflow.
+
+Source: Built directly from the class slide deck (Dr. Monika Gupta), not a published article.
