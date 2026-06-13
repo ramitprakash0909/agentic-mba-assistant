@@ -68,6 +68,24 @@
   .chip.amber{color:var(--amber);border-color:rgba(210,153,34,.4)}
   .dhead{display:flex;align-items:center;gap:10px;margin:24px 0 10px;color:var(--text);font-weight:600;font-size:15px}
   .dcount{font-size:12px;font-weight:400;color:var(--muted);background:#30363d55;border:1px solid var(--border);border-radius:20px;padding:2px 9px}
+  /* agent flow panel */
+  .flowwrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 18px 16px;margin-top:14px}
+  .flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:6px}
+  .node{flex:1 1 92px;min-width:84px;text-align:center;padding:10px 6px;border:1px solid var(--border);
+        border-radius:10px;background:var(--bg);transition:.25s;opacity:.5}
+  .node.active{opacity:1;border-color:var(--accent);box-shadow:0 0 0 2px rgba(88,166,255,.25);transform:translateY(-2px)}
+  .node.done{opacity:1;border-color:rgba(63,185,80,.5)}
+  .node .i{font-size:22px;line-height:1}
+  .node .nm{font-size:12px;font-weight:600;margin-top:5px}
+  .node .tg{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:1px}
+  .conn{align-self:center;color:var(--muted);font-size:15px;flex:0 0 auto;transition:.25s}
+  .conn.lit{color:var(--accent)}
+  .flowstatus{margin-top:14px;min-height:24px;background:var(--bg);border:1px solid var(--border);
+              border-radius:8px;padding:10px 12px;font-size:13px;color:var(--text)}
+  .flowstatus .stg{color:var(--accent);font-weight:600}
+  .replay{margin-top:12px;font-size:13px;padding:6px 15px;border-radius:8px;background:var(--accent);
+          color:#0d1117;border:none;cursor:pointer;font-weight:600}
+  .replay:hover{filter:brightness(1.08)}
   .empty{color:var(--muted);padding:28px;text-align:center}
   footer{margin-top:48px;color:var(--muted);font-size:13px;text-align:center;line-height:1.7}
   a{color:var(--accent)}
@@ -84,6 +102,13 @@
 
   <!-- stats -->
   <div class="stats" id="stats"></div>
+
+  <h2>How a run flows <span style="text-transform:none;letter-spacing:0;font-weight:400">— watch a real run move through the agent</span></h2>
+  <div class="flowwrap">
+    <div class="flow" id="flowrow"></div>
+    <div class="flowstatus" id="flowstatus">▶ Press “Replay a run” to watch the agent work, step by step.</div>
+    <button class="replay" id="replay">▶ Replay a run</button>
+  </div>
 
   <h2>Agentic patterns in play <span style="text-transform:none;letter-spacing:0;font-weight:400">— click to filter</span></h2>
   <div class="legend" id="legend"></div>
@@ -120,12 +145,73 @@ function fmtDate(iso){
   return `${M[(m||1)-1]} ${d}, ${y}`;
 }
 
+// ---- agent flow panel ----
+const STAGES = [
+  { icon:'⏰', name:'Trigger',       tag:'7 PM cron' },
+  { icon:'📅', name:'Calendar',      tag:'perceive' },
+  { icon:'🗂️', name:'Drive · read',  tag:'RAG' },
+  { icon:'🧠', name:'Claude',        tag:'reason' },
+  { icon:'📄', name:'Drive · write', tag:'save doc' },
+  { icon:'✉️', name:'Gmail',         tag:'draft (HITL)' },
+  { icon:'🧾', name:'GitHub',        tag:'self-log' },
+];
+const truncate = (s,n) => (s && s.length>n) ? s.slice(0,n-1)+'…' : (s||'');
+let flowTimer = null;
+
+function flowRun(){ return allRuns().find(r => (r.sessions||[]).length) || allRuns()[0]; }
+
+function stageCaption(i, run){
+  const s = (run && (run.sessions||[])[0]) || {};
+  switch(i){
+    case 0: return `Woke up on schedule${run&&run.firedAt?` — fired ${run.firedAt}`:''}.`;
+    case 1: return `Checked tomorrow's calendar → found "${s.course||'a class'}".`;
+    case 2: return s.preReadTitle ? `Retrieved the pre-read → ${truncate(s.preReadTitle,64)} (${s.preReadSource||'source'}).` : `Looked up the assigned pre-read in Drive.`;
+    case 3: return `Generated a Professor-Mode brief with ${(run&&run.model)||'Claude'}.`;
+    case 4: return (s.docCreated && s.docCreated!==false) ? `Saved the analysis as a Google Doc.` : `Doc already existed → skipped (idempotency).`;
+    case 5: return s.draftCreated ? `Created a Gmail draft — never auto-sent (human-in-the-loop).` : `Draft already existed → skipped.`;
+    case 6: return `Committed this run's trace to GitHub → you're reading it now.`;
+    default: return '';
+  }
+}
+
+function renderFlow(){
+  const row = document.getElementById('flowrow');
+  if (!row) return;
+  row.innerHTML = STAGES.map((st,i) =>
+    `<div class="node" data-i="${i}"><div class="i">${st.icon}</div><div class="nm">${st.name}</div><div class="tg">${st.tag}</div></div>`
+    + (i < STAGES.length-1 ? `<span class="conn">→</span>` : '')
+  ).join('');
+}
+
+function animateFlow(){
+  if (!state.data) return;
+  if (flowTimer){ clearTimeout(flowTimer); flowTimer = null; }
+  const run = flowRun();
+  const nodes = [...document.querySelectorAll('#flowrow .node')];
+  const conns = [...document.querySelectorAll('#flowrow .conn')];
+  nodes.forEach(n => n.classList.remove('active','done'));
+  conns.forEach(c => c.classList.remove('lit'));
+  const status = document.getElementById('flowstatus');
+  let i = 0;
+  (function step(){
+    if (i > 0){ nodes[i-1].classList.remove('active'); nodes[i-1].classList.add('done'); if (conns[i-1]) conns[i-1].classList.add('lit'); }
+    if (i >= nodes.length){
+      status.innerHTML = `<span class="stg">✓ complete</span> — one fully autonomous run; the only human step is pressing "send" on the draft.`;
+      flowTimer = null; return;
+    }
+    nodes[i].classList.add('active');
+    status.innerHTML = `<span class="stg">${STAGES[i].name}</span> · ${stageCaption(i, run)}`;
+    i++;
+    flowTimer = setTimeout(step, 1150);
+  })();
+}
+
 // interaction state
 const state = { course:null, pattern:null, open:new Set(), data:null };
 
 fetch('./data/run-log.json')
   .then(r => r.json())
-  .then(data => { state.data = data; renderAll(); })
+  .then(data => { state.data = data; renderAll(); setTimeout(animateFlow, 450); })
   .catch(e => {
     document.getElementById('runs').innerHTML =
       '<div class="empty">Could not load run-log.json — ' + e + '</div>';
@@ -144,6 +230,7 @@ function visibleRuns(){
 
 function renderAll(){
   renderStats();
+  renderFlow();
   renderLegend();
   renderFilters();
   renderRuns();
@@ -241,6 +328,7 @@ function renderRuns(){
 
 // event delegation
 document.addEventListener('click', e => {
+  if (e.target.closest('#replay')){ animateFlow(); return; }
   const head = e.target.closest('.run-head');
   if (head){
     const id = decodeURIComponent(head.dataset.id);
