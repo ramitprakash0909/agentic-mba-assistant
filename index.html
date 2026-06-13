@@ -69,8 +69,18 @@
   .dhead{display:flex;align-items:center;gap:10px;margin:24px 0 10px;color:var(--text);font-weight:600;font-size:15px}
   .dcount{font-size:12px;font-weight:400;color:var(--muted);background:#30363d55;border:1px solid var(--border);border-radius:20px;padding:2px 9px}
   /* agent flow panel */
-  .flowwrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 18px 16px;margin-top:14px}
+  .flowwrap{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:18px 18px 16px;margin-top:14px;position:relative}
   .flow{display:flex;align-items:stretch;flex-wrap:wrap;gap:6px}
+  #flowrow{margin-bottom:120px}
+  .callout{position:absolute;width:max-content;max-width:282px;background:var(--panel2);
+           border:1px solid var(--accent);border-radius:10px;padding:10px 12px;
+           box-shadow:0 8px 22px rgba(0,0,0,.5);z-index:5;transition:left .35s ease,top .35s ease}
+  .callout::before{content:'';position:absolute;top:-6px;left:var(--ax,50%);width:11px;height:11px;
+           background:var(--panel2);border-left:1px solid var(--accent);border-top:1px solid var(--accent);
+           transform:translateX(-50%) rotate(45deg);opacity:var(--aop,1)}
+  .callout .ct{font-size:13px;font-weight:700}
+  .callout .cd{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+  .callout .cx{font-size:12px;color:var(--accent);margin-top:7px;line-height:1.45}
   .node{flex:1 1 92px;min-width:84px;text-align:center;padding:10px 6px;border:1px solid var(--border);
         border-radius:10px;background:var(--bg);transition:.25s;opacity:.5}
   .node.active{opacity:1;border-color:var(--accent);box-shadow:0 0 0 2px rgba(88,166,255,.25);transform:translateY(-2px)}
@@ -106,6 +116,7 @@
   <h2>How a run flows <span style="text-transform:none;letter-spacing:0;font-weight:400">— watch a real run move through the agent</span></h2>
   <div class="flowwrap">
     <div class="flow" id="flowrow"></div>
+    <div class="callout" id="callout" style="display:none"></div>
     <div class="flowstatus" id="flowstatus">▶ Press “Replay a run” to watch the agent work, step by step.</div>
     <button class="replay" id="replay">▶ Replay a run</button>
   </div>
@@ -147,13 +158,13 @@ function fmtDate(iso){
 
 // ---- agent flow panel ----
 const STAGES = [
-  { icon:'⏰', name:'Trigger',       tag:'7 PM cron' },
-  { icon:'📅', name:'Calendar',      tag:'perceive' },
-  { icon:'🗂️', name:'Drive · read',  tag:'RAG' },
-  { icon:'🧠', name:'Claude',        tag:'reason' },
-  { icon:'📄', name:'Drive · write', tag:'save doc' },
-  { icon:'✉️', name:'Gmail',         tag:'draft (HITL)' },
-  { icon:'🧾', name:'GitHub',        tag:'self-log' },
+  { icon:'⏰', name:'Trigger',       tag:'7 PM cron',    desc:'A scheduled routine fires on its own — no human kicks it off.' },
+  { icon:'📅', name:'Calendar',      tag:'perceive',     desc:"Reads tomorrow's class schedule from Google Calendar." },
+  { icon:'🗂️', name:'Drive · read',  tag:'RAG',          desc:'Finds and reads the assigned pre-read from Google Drive.' },
+  { icon:'🧠', name:'Claude',        tag:'reason',       desc:'Reasons over the reading to write a Professor-Mode brief.' },
+  { icon:'📄', name:'Drive · write', tag:'save doc',     desc:'Saves the brief as a Google Doc in the course folder.' },
+  { icon:'✉️', name:'Gmail',         tag:'draft (HITL)', desc:'Creates a Gmail draft — never sends it (human-in-the-loop).' },
+  { icon:'🧾', name:'GitHub',        tag:'self-log',     desc:'Commits a trace of the run to this repo — powering this page.' },
 ];
 const truncate = (s,n) => (s && s.length>n) ? s.slice(0,n-1)+'…' : (s||'');
 let flowTimer = null;
@@ -183,26 +194,52 @@ function renderFlow(){
   ).join('');
 }
 
+function placeCallout(node, centered){
+  const co = document.getElementById('callout');
+  const wrapW = co.offsetParent.clientWidth;
+  if (centered || !node){
+    co.style.left = Math.max(8, (wrapW - co.offsetWidth)/2) + 'px';
+    co.style.setProperty('--aop','0');
+    return;
+  }
+  const c = node.offsetLeft + node.offsetWidth/2;
+  let left = c - co.offsetWidth/2;
+  left = Math.max(8, Math.min(left, wrapW - co.offsetWidth - 8));
+  co.style.left = left + 'px';
+  co.style.top  = (node.offsetTop + node.offsetHeight + 14) + 'px';
+  co.style.setProperty('--ax', (c - left) + 'px');
+  co.style.setProperty('--aop','1');
+}
+
 function animateFlow(){
   if (!state.data) return;
   if (flowTimer){ clearTimeout(flowTimer); flowTimer = null; }
   const run = flowRun();
   const nodes = [...document.querySelectorAll('#flowrow .node')];
   const conns = [...document.querySelectorAll('#flowrow .conn')];
+  const co = document.getElementById('callout');
+  const status = document.getElementById('flowstatus');
   nodes.forEach(n => n.classList.remove('active','done'));
   conns.forEach(c => c.classList.remove('lit'));
-  const status = document.getElementById('flowstatus');
   let i = 0;
   (function step(){
     if (i > 0){ nodes[i-1].classList.remove('active'); nodes[i-1].classList.add('done'); if (conns[i-1]) conns[i-1].classList.add('lit'); }
     if (i >= nodes.length){
-      status.innerHTML = `<span class="stg">✓ complete</span> — one fully autonomous run; the only human step is pressing "send" on the draft.`;
+      co.innerHTML = `<div class="ct">✓ Run complete</div><div class="cd">One fully autonomous run — the only human step is pressing "send" on the draft.</div>`;
+      co.style.display = 'block';
+      co.style.top = (nodes[0].offsetTop + nodes[0].offsetHeight + 14) + 'px';
+      placeCallout(null, true);
+      status.innerHTML = `<span class="stg">✓ complete</span> · replayed the run for ${fmtDate(run.targetDate)}`;
       flowTimer = null; return;
     }
     nodes[i].classList.add('active');
-    status.innerHTML = `<span class="stg">${STAGES[i].name}</span> · ${stageCaption(i, run)}`;
+    const st = STAGES[i];
+    co.innerHTML = `<div class="ct">${st.icon} ${st.name}</div><div class="cd">${st.desc}</div><div class="cx">${stageCaption(i, run)}</div>`;
+    co.style.display = 'block';
+    placeCallout(nodes[i], false);
+    status.innerHTML = `<span class="stg">Step ${i+1} of ${nodes.length}</span> · replaying the run for ${fmtDate(run.targetDate)}`;
     i++;
-    flowTimer = setTimeout(step, 1150);
+    flowTimer = setTimeout(step, 1600);
   })();
 }
 
