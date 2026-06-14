@@ -555,6 +555,34 @@
       ],
       "sessions": [],
       "notes": "Only 2 kept academic sessions for 2026-06-15 (Leading Digital Initiatives S2&3 at 09:00; Leading Self, People, and Teams S11&12 at 14:30). The 17:10 'Feedback - Sector Strategic Analysis' was skipped per filter. Run 3 processes sorted positions 3,6,9...; position 3 does not exist, so no sessions assigned to this run. Connector self-test passed (Calendar/Drive/Gmail). Nothing generated."
+    },
+    {
+      "targetDate": "2026-06-15",
+      "firedAt": "2026-06-14T15:06:17Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Self, People, and Teams",
+          "session": "11 & 12",
+          "preReadSource": "drive-file",
+          "preReadTitle": "S12 (compulsory): MacArthur, H. V. (2025), 'The Power of Listening', Forbes [read from Drive PDF, Pre Reads/Session 12]; S11 (suggested, published-fallback): Wilding (2020) + Hitachi Foundation (2016), Forbes",
+          "docCreated": false,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1l5pUSLo_ucNJzFjMW8j0IuJQHHvwMJZm1LqX2KS8TdM/edit"
+        }
+      ],
+      "notes": "Run 2 of 3 processes positions 2,5,8 of sessions sorted by start time. Position 2 = Leading Self, People, and Teams S11&12 (14:30). Doc already existed in Daily Analyses (created earlier this run window) -> skipped creation per idempotency (docCreated=false); Gmail draft created. Mixed sourcing: S12 compulsory from Drive PDF, S11 suggested built from published Forbes articles + theme (no Session 11 subfolder) -- flagged in doc & draft. Position 1 (Leading Digital Initiatives) handled by Run 1; 17:10 Feedback-SSA skipped per filter."
     }
   ]
 }
