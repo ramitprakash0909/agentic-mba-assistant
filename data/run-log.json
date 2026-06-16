@@ -64,7 +64,7 @@
           "docUrl": "https://docs.google.com/document/d/1nkynhm9k5HhHp1A4xuBrAU8wejXjS6BOjTypoPS67dw/edit"
         }
       ],
-      "notes": "Run 1 = position 1 (Systems & Design Thinking S6, 10:30 IST). Idempotent skip: Daily Analyses already contained matching doc '2026-06-09 \u2014 Systems & Design Thinking S6 \u2014 Pre-Read Analysis (v2, Professor Mode)' and a matching non-test Gmail draft already existed; no new doc/draft created. Pre-read verified in Drive: Pre Reads/Session 6/Systems Thinking - HBR.pdf. Positions 2 (Leading Self S7) & 3 (BTDA S5&6) belong to Runs 2 & 3."
+      "notes": "Run 1 = position 1 (Systems & Design Thinking S6, 10:30 IST). Idempotent skip: Daily Analyses already contained matching doc '2026-06-09 — Systems & Design Thinking S6 — Pre-Read Analysis (v2, Professor Mode)' and a matching non-test Gmail draft already existed; no new doc/draft created. Pre-read verified in Drive: Pre Reads/Session 6/Systems Thinking - HBR.pdf. Positions 2 (Leading Self S7) & 3 (BTDA S5&6) belong to Runs 2 & 3."
     },
     {
       "targetDate": "2026-06-09",
@@ -179,7 +179,7 @@
           "course": "Systems and Design Thinking",
           "session": "7",
           "preReadSource": "drive-file",
-          "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. Jul 2024)",
+          "preReadTitle": "Module Note — Systems Thinking (Harvard Business School, 9-322-030, rev. Jul 2024)",
           "docCreated": true,
           "draftCreated": true,
           "docUrl": "https://docs.google.com/document/d/1zARCTBbf6K25oEqno2HkdPbiswEAVadY4rDWYJq7xps/edit"
@@ -213,7 +213,7 @@
           "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"
         }
       ],
-      "notes": "Run 3 assigned positions 3,6,9 of 4 sorted academic sessions; only position 3 existed = Entrepreneurial Thinking Session 1 (12:00, faculty Prof. Vidhula Venugopal). Idempotency: Google Doc '2026-06-10 \u2014 Entrepreneurial Thinking Session 1 \u2014 Pre-Read Analysis' and matching Gmail draft already existed (created by sibling run ~03:54-03:55 IST), so both were SKIPPED to avoid duplicates. Pre-reads (Sarasvathy + Kuratko PDFs) were read from a classmate's shared Drive folder; ET course folder still has no 'Pre Reads' subfolder (only Course Outline + Daily Analyses)."
+      "notes": "Run 3 assigned positions 3,6,9 of 4 sorted academic sessions; only position 3 existed = Entrepreneurial Thinking Session 1 (12:00, faculty Prof. Vidhula Venugopal). Idempotency: Google Doc '2026-06-10 — Entrepreneurial Thinking Session 1 — Pre-Read Analysis' and matching Gmail draft already existed (created by sibling run ~03:54-03:55 IST), so both were SKIPPED to avoid duplicates. Pre-reads (Sarasvathy + Kuratko PDFs) were read from a classmate's shared Drive folder; ET course folder still has no 'Pre Reads' subfolder (only Course Outline + Daily Analyses)."
     },
     {
       "targetDate": "2026-06-11",
@@ -235,13 +235,13 @@
           "course": "Systems and Design Thinking",
           "session": "7",
           "preReadSource": "drive-file",
-          "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. 29 Jul 2024)",
+          "preReadTitle": "Module Note — Systems Thinking (Harvard Business School, 9-322-030, rev. 29 Jul 2024)",
           "docCreated": true,
           "draftCreated": true,
           "docUrl": "https://docs.google.com/document/d/1yJcUcOWWQoKziL5ox-F1V6vhB7OYKhW-rOI_aUn3Yhc/edit"
         }
       ],
-      "notes": "Run 1 assigned positions 1,4,7 of 2 sorted academic sessions for 2026-06-11; only position 1 existed = Systems and Design Thinking Session 7 (14:30, C3-07, faculty Dr. Bindu Kulkarni & Dr. Harit Joshi). Skipped: MCOM_DIV C S23&24 (10:30, MCOM filter). Position 2 (Leading Digital Initiatives Session 1, 16:00) left for sibling runs. No separate Session 7 pre-read folder in Drive; per Course Outline the same Module Note \u2014 Systems Thinking (HBS 9-322-030) is assigned to Sessions 6 and 7, so the PDF was read directly from Pre Reads > Session 6. Idempotency: no existing 2026-06-11 doc in Daily Analyses, so Google Doc and Gmail draft were created fresh."
+      "notes": "Run 1 assigned positions 1,4,7 of 2 sorted academic sessions for 2026-06-11; only position 1 existed = Systems and Design Thinking Session 7 (14:30, C3-07, faculty Dr. Bindu Kulkarni & Dr. Harit Joshi). Skipped: MCOM_DIV C S23&24 (10:30, MCOM filter). Position 2 (Leading Digital Initiatives Session 1, 16:00) left for sibling runs. No separate Session 7 pre-read folder in Drive; per Course Outline the same Module Note — Systems Thinking (HBS 9-322-030) is assigned to Sessions 6 and 7, so the PDF was read directly from Pre Reads > Session 6. Idempotency: no existing 2026-06-11 doc in Daily Analyses, so Google Doc and Gmail draft were created fresh."
     },
     {
       "targetDate": "2026-06-11",
@@ -472,7 +472,7 @@
         "human-in-the-loop"
       ],
       "sessions": [],
-      "notes": "No events on the PGPM Batch22 - DIV C class calendar for 2026-06-14 (Sunday) \u2014 verified with both an exact-day query and a wider Sat 20:00 to Mon 06:00 IST window, both returned zero events. No academic class sessions tomorrow, so nothing to generate (no pre-reads, docs, or drafts). Connector self-test passed for all three (Calendar, Drive, Gmail). Run 1 of 3 logged with empty sessions array per the load-distribution rule."
+      "notes": "No events on the PGPM Batch22 - DIV C class calendar for 2026-06-14 (Sunday) — verified with both an exact-day query and a wider Sat 20:00 to Mon 06:00 IST window, both returned zero events. No academic class sessions tomorrow, so nothing to generate (no pre-reads, docs, or drafts). Connector self-test passed for all three (Calendar, Drive, Gmail). Run 1 of 3 logged with empty sessions array per the load-distribution rule."
     },
     {
       "targetDate": "2026-06-14",
@@ -658,13 +658,41 @@
           "course": "Leading Digital Initiatives",
           "session": "4 & 5",
           "preReadSource": "none",
-          "preReadTitle": "No assigned article \u2014 session theme: BPMN Basics (S4) + Applying BPM case study + Quiz 1 (S5)",
+          "preReadTitle": "No assigned article — session theme: BPMN Basics (S4) + Applying BPM case study + Quiz 1 (S5)",
           "docCreated": true,
           "draftCreated": true,
           "docUrl": "https://docs.google.com/document/d/1Ky_m4EtNGrN2iTBB5rKWoXw1ct-soGcP8CFKurMlIes/edit"
         }
       ],
       "notes": "Run 1 processed position 1 of 2 kept academic sessions (LDI S4&5 @09:00; BTDA S7&8 @16:00 left for sibling runs). MCOM S25&26 skipped per filter. No Session 4/5 pre-read folder and outline assigns no article to these sessions, so analysis built from session theme (rule C, flagged). Doc created in Daily Analyses; Gmail draft created (not sent)."
+    },
+    {
+      "targetDate": "2026-06-17",
+      "firedAt": "2026-06-16T13:45:00Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Business Transformation in the Digital Age",
+          "session": "7 & 8",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Platform Business Models - From Pipelines to Platforms (Block 4 deck) + Mini Case: Swiggy - The Instamart Question",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/16-dKyo3n7ROS9fyzqYJrCt2vJODK7XM85nPpCgvlJCs/edit"
+        }
+      ],
+      "notes": "Run 2 of 3 processed position 2 of 2 kept academic sessions (sorted by start time). Position 1 = Leading Digital Initiatives S4&5 (Run 1, draft already present). MCOM 25&26 at 12:00/14:30 skipped per filter. BTDA pre-read read from actual Drive PDFs in Pre Reads/Session 7&8. Doc + Gmail draft created; idempotency check found no pre-existing doc."
     }
   ]
 }
