@@ -1,1 +1,670 @@
-{"agent": "Daily Pre-Read Analysis", "description": "Three scheduled agents that prepare MBA class pre-read analyses every evening.", "patternsLegend": {"scheduled-autonomy": "Runs on a cron trigger with no human action", "tool-use": "Calls external tools (Calendar / Drive / Gmail) via MCP", "rag": "Retrieves the real pre-read from Drive before generating", "planning": "Decomposes the task: filter -> map -> find -> generate", "multi-agent": "Work split round-robin across 3 staggered runs", "idempotency": "Skips creating a doc that already exists for the day", "human-in-the-loop": "Produces Gmail drafts, never auto-sends"}, "runs": [{"targetDate": "2026-06-09", "firedAt": "2026-06-08T09:59:00Z", "run": "test-fire (pre-split, single routine)", "model": "claude-sonnet-4-6", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "6", "preReadSource": "drive-file", "preReadTitle": "Module Note - Systems Thinking (HBS 322-030)", "docCreated": "reused existing (idempotency)", "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1nkynhm9k5HhHp1A4xuBrAU8wejXjS6BOjTypoPS67dw/edit"}], "notes": "Confirmed the remote agent can reach all 3 Google connectors unattended."}, {"targetDate": "2026-06-09", "firedAt": "2026-06-08T15:11:39Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "Session 6", "preReadSource": "drive-file", "preReadTitle": "Systems Thinking - HBR.pdf", "docCreated": false, "draftCreated": false, "docUrl": "https://docs.google.com/document/d/1nkynhm9k5HhHp1A4xuBrAU8wejXjS6BOjTypoPS67dw/edit"}], "notes": "Run 1 = position 1 (Systems & Design Thinking S6, 10:30 IST). Idempotent skip: Daily Analyses already contained matching doc '2026-06-09 \u2014 Systems & Design Thinking S6 \u2014 Pre-Read Analysis (v2, Professor Mode)' and a matching non-test Gmail draft already existed; no new doc/draft created. Pre-read verified in Drive: Pre Reads/Session 6/Systems Thinking - HBR.pdf. Positions 2 (Leading Self S7) & 3 (BTDA S5&6) belong to Runs 2 & 3."}, {"targetDate": "2026-06-09", "firedAt": "2026-06-08T18:03:34Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Self, People, and Teams", "session": "7", "preReadSource": "film", "preReadTitle": "Twelve Angry Men (1957)", "docCreated": false, "draftCreated": false, "docUrl": "https://docs.google.com/document/d/1LpHAdlx9upBfU97MP-HxlLi0yuEl0DRF_DWih_het-s/edit"}], "notes": "Assigned position 2 of 3 kept academic sessions (sorted by start time: 1=Systems Thinking S6 10:30, 2=Leading Self S7 12:00, 3=BTDA S5&6 14:30). Idempotent skip: Google Doc '2026-06-09 - Leading Self, People & Teams S7 - Pre-Read Analysis' and matching Gmail draft already existed from a prior run, so no duplicates created. No Session 7 folder in Pre Reads (folders skip 6->8); outline material is the film 'Twelve Angry Men', source=film."}, {"targetDate": "2026-06-10", "firedAt": "2026-06-09T03:55:56Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Entrepreneurial Thinking", "session": "1", "preReadSource": "drive-file", "preReadTitle": "What Makes Entrepreneurs Entrepreneurial? (Sarasvathy, UV1356) + Enacting Entrepreneurial Hustle (Kuratko et al., BH1224)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"}], "notes": "Run 3 processed position 3 of 4 kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 6 does not exist. Skipped 15:40 'Feedback'. ET course folder had no 'Daily Analyses' subfolder so it was created (id 11sEna9R0z3GP3cwQGktHvziBWH0dP48n). ET folder also has no 'Pre Reads' subfolder; the two assigned PDFs (exact works named in Course Outline for Sessions 1&2) were read from a classmate's shared Drive folder, flagged in the doc."}, {"targetDate": "2026-06-10", "firedAt": "2026-06-09T13:39:34Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Self, People, and Teams", "session": "8", "preReadSource": "drive-file", "preReadTitle": "How to Prepare for a Meeting Where Emotions Will Run High (Dina Denham Smith, HBR 2025, Reprint H08OQ4)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1717KKMungF5Hhx-DMlg0MAH-0JD6mAVlTjLDgz-lh1c/edit"}, {"course": "Entrepreneurial Thinking", "session": "2", "preReadSource": "drive-file", "preReadTitle": "What Makes Entrepreneurs Entrepreneurial? (Sarasvathy, UV1356) + Enacting Entrepreneurial Hustle (Kuratko et al., BH1224)", "docCreated": false, "draftCreated": false, "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"}], "notes": "Run 1 processed positions 1 and 4 of the kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 7 does not exist. Skipped 15:40 'Feedback'. Position 1 = Leading Self S8: pre-read read directly from Drive (Pre Reads > Session 8 PDF); doc + Gmail draft created. Position 4 = ET S2: SKIPPED doc/draft per Step-7 idempotency - a sibling (Run 3) already created '2026-06-10 - Entrepreneurial Thinking Session 1' in the ET Daily Analyses folder, and ET Sessions 1 & 2 share identical readings (Sarasvathy UV1356 + Kuratko BH1224) per the Course Outline, so the Session-1 analysis already covers Session 2. ET course folder still has no 'Pre Reads' subfolder."}, {"targetDate": "2026-06-10", "firedAt": "2026-06-09T13:46:00Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "7", "preReadSource": "drive-file", "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. Jul 2024)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1zARCTBbf6K25oEqno2HkdPbiswEAVadY4rDWYJq7xps/edit"}], "notes": "Run 2 processed position 2 of the kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 5 does not exist. Skipped 15:40 'Feedback'. Position 2 = Systems & Design Thinking S7 (Causal Loop Diagrams, Behaviour Modes, Delays & Oscillations). Pre-read read directly from Drive (Pre Reads > Session 7 > 'Systems Thinking - HBR.pdf') - same HBS 322-030 module note the outline assigns across Sessions 6-7. Idempotency: no prior 2026-06-10 Systems doc existed (only Session 6 from 09 Jun), so created new Google Doc + Gmail draft."}, {"targetDate": "2026-06-10", "firedAt": "2026-06-09T14:07:10Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Entrepreneurial Thinking", "session": "1", "preReadSource": "drive-file", "preReadTitle": "Sarasvathy (2005) 'What Makes Entrepreneurs Entrepreneurial?' (Darden UV1356) + Kuratko et al. (2023) 'Enacting Entrepreneurial Hustle' (Business Horizons BH1224)", "docCreated": false, "draftCreated": false, "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"}], "notes": "Run 3 assigned positions 3,6,9 of 4 sorted academic sessions; only position 3 existed = Entrepreneurial Thinking Session 1 (12:00, faculty Prof. Vidhula Venugopal). Idempotency: Google Doc '2026-06-10 \u2014 Entrepreneurial Thinking Session 1 \u2014 Pre-Read Analysis' and matching Gmail draft already existed (created by sibling run ~03:54-03:55 IST), so both were SKIPPED to avoid duplicates. Pre-reads (Sarasvathy + Kuratko PDFs) were read from a classmate's shared Drive folder; ET course folder still has no 'Pre Reads' subfolder (only Course Outline + Daily Analyses)."}, {"targetDate": "2026-06-11", "firedAt": "2026-06-10T13:38:32Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "7", "preReadSource": "drive-file", "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. 29 Jul 2024)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1yJcUcOWWQoKziL5ox-F1V6vhB7OYKhW-rOI_aUn3Yhc/edit"}], "notes": "Run 1 assigned positions 1,4,7 of 2 sorted academic sessions for 2026-06-11; only position 1 existed = Systems and Design Thinking Session 7 (14:30, C3-07, faculty Dr. Bindu Kulkarni & Dr. Harit Joshi). Skipped: MCOM_DIV C S23&24 (10:30, MCOM filter). Position 2 (Leading Digital Initiatives Session 1, 16:00) left for sibling runs. No separate Session 7 pre-read folder in Drive; per Course Outline the same Module Note \u2014 Systems Thinking (HBS 9-322-030) is assigned to Sessions 6 and 7, so the PDF was read directly from Pre Reads > Session 6. Idempotency: no existing 2026-06-11 doc in Daily Analyses, so Google Doc and Gmail draft were created fresh."}, {"targetDate": "2026-06-11", "firedAt": "2026-06-10T13:50:00Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Digital Initiatives: From Selection to Implementation", "session": "Session 1", "preReadSource": "drive-file", "preReadTitle": "Transforming Employee Performance Through Business Process Management (Sannali case, CAIS Vol. 57, Paper 14)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1uyvwk-cXxuqBGeNwuGPCqVx4eR4d4l9Q6v55j09Vfjo/edit"}], "notes": "Run 2 of 3 processes sorted-position 2. Tomorrow had 2 kept academic sessions after skipping MCOM S23&24: [1] Systems Thinking S7 (Run 1), [2] Leading Digital Initiatives S1 (this run). Created the 'Daily Analyses' subfolder for Leading Digital Initiatives (none existed; new id 1s-2mt8VAezL2yMJqUnCSP_yPP1XMeIGO). Pre-read read directly from Drive PDF; Google Doc + Gmail draft created. Faculty: Prof. Jyoti Jagasia."}, {"targetDate": "2026-06-11", "firedAt": "2026-06-10T14:00:00Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "Only 2 kept academic sessions tomorrow (Systems Thinking S7 @14:30, Leading Digital Initiatives S1 @16:00), handled by Runs 1 & 2. Run 3 processes positions 3,6,9...; position 3 does not exist, so no sessions assigned. MCOM S23&24 skipped per filter. Connector self-test passed for Calendar, Drive, and Gmail."}, {"targetDate": "2026-06-12", "firedAt": "2026-06-11T13:40:03Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Self, People, and Teams", "session": "Sessions 9 & 10", "preReadSource": "published-fallback", "preReadTitle": "Emotional Agility (David & Congleton, HBR 2014) + How to Play to Your Strengths / Reflected Best Self (Roberts et al., HBR 2005) + instrumental vs terminal values", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1TgZot868GVmORA3D-6WS3uUZ4s2gVNCCv0dlqHqPu1A/edit"}, {"course": "AI and Analytics Foundation", "session": "Sessions 1 & 2", "preReadSource": "none", "preReadTitle": "No assigned reading (Course Outline = Class Discussion); themes: 'Intelligent Systems: What AI Actually Is' & 'The AI Revolution So Far'", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1-8ZHgJuv-dsvuQYLPCS9hLo-TGR4MEhQqbQZzwvF8-w/edit"}], "notes": "Run 1 processed positions 1 and 4 of 4 sorted academic sessions for 2026-06-12 (1=Leading Self S9&10 09:00, 2=Systems Thinking S9 12:00, 3=Systems Thinking S10 14:30, 4=AI & Analytics S1&2 16:00); position 7 does not exist. Positions 2 & 3 left for sibling runs. Position 1 (Leading Self S9&10): Pre Reads/Session 9 and Session 10 folders are EMPTY; Course Outline assigns published HBR articles (David & Congleton Emotional Agility; Roberts et al. How to Play to Your Strengths) so analysis built from published versions, flagged published-fallback. Position 4 (AI & Analytics S1&2): Course Outline marks both sessions 'Class Discussion' with no prescribed reading (only Session 10 Mercor case has a pre-read), so theme-based brief, source=none, flagged in doc. Created new 'Daily Analyses' subfolder for AI and Analytics Foundation (none existed; new id 1I-YOW3aYBSdEpa5SXuCE3bL3aPV8Myo7). Both Google Docs + Gmail drafts created fresh (no prior 2026-06-12 docs)."}, {"targetDate": "2026-06-12", "firedAt": "2026-06-11T13:50:16Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "9", "preReadSource": "drive-file", "preReadTitle": "St. Jude ChildCare: Applying Systems Thinking in Pediatric Cancer (Ivey W42201, Kamath/Kulkarni/Nagaraj, 2025)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/12X6RYikrFCSSHTUDQKoVuMxdanv1hsOIkRVrLD7UmJY/edit"}], "notes": "Run 2 of 3 assignment = sorted positions 2,5,8... Of 4 academic sessions tomorrow (Leading Self S9&10 @09:00; Systems Thinking S9 @12:00; Systems Thinking S10 @14:30; AI&Analytics 1&2 @16:00), only position 2 = Systems Thinking Session 9. No 'Session 9' Pre Reads sub-folder existed; Course Outline names the Session 9 integrative case, found as a real Drive PDF and read directly. Quiz 1 falls in this session. Idempotency: no prior 2026-06-12 doc in Daily Analyses."}, {"targetDate": "2026-06-12", "firedAt": "2026-06-11T14:05:00Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Systems and Design Thinking", "session": "10", "preReadSource": "none", "preReadTitle": "Lab Session: System Analysis of Projects (no assigned reading per Course Outline)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1EENRwjijf_sPW0Q71iCjNk3c3wp8B95ZK8VUYulj0cg/edit"}], "notes": "Run 3 of 3 processed position 3 of 4 sorted academic sessions = Systems and Design Thinking Session 10 (14:30, simulation lab). Outline marks S10 a Lab Session with no pre-read; rule-C theme brief built from session theme + Systems Thinking knowledge, flagged. Doc id 1EENRwjijf_sPW0Q71iCjNk3c3wp8B95ZK8VUYulj0cg created in Daily Analyses; Gmail draft created (not sent). Positions 1,2,4 handled by Runs 1/2."}, {"targetDate": "2026-06-13", "firedAt": "2026-06-12T13:37:56Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Sector Strategic Analysis", "session": "9 & 10", "preReadSource": "drive-file", "preReadTitle": "From cost center to competitive advantage: Modernizing reverse logistics with AI (McKinsey, Feb 2026) + Industry report on logistics market in India (CRISIL, 27 Sep 2025)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1abT8dWNHekI1nqfsaN3yvmbo2ZhEfW1o94jcYfIXUDI/edit"}], "notes": "Sector: Logistics (Sessions 9-10 per Course Outline; Guest Mr. Girija Shankar, Maersk; Faculty Prof. Bindu Kulkarni). Run 1 of 3 processes sorted positions 1,4,7...; only position 1 = SSA Sessions 9&10 assigned this run. Sessions 11&12 (also SSA) left for Run 2. Created new 'Daily Analyses' subfolder in the SSA course folder (none existed). Both pre-read PDFs read directly from Drive."}, {"targetDate": "2026-06-13", "firedAt": "2026-06-12T13:49:00Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Sector Strategic Analysis", "session": "11 & 12", "preReadSource": "drive-file", "preReadTitle": "Vision 2030: India's rise as a global force in consumer electronics and durables (CII-EY Parthenon, 2024) + India's electronics manufacturing and export market (IBEF, 2026)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1aG8J_zdaYnF5VPEwqDlD0_4D9Klf-MK66RGOET50rPw/edit"}], "notes": "Sector: Consumer Electronics & Durables (Sessions 11-12 per Course Outline; Guest Dr. Muralikrishnan, Xiaomi; Faculty Prof. Ravi Roshan). Run 2 of 3 processes sorted positions 2,5,8...; of 2 academic sessions tomorrow (both SSA: S9&10 @10:30 Run 1, S11&12 @14:30) only position 2 = SSA Sessions 11&12 assigned this run. Pre Reads folder is organised by SECTOR not 'Session N'; outline maps Sessions 11-12 to Consumer Electronics. The CII-EY Vision 2030 PDF was read IN FULL from Drive. The IBEF PDF exists in Drive but is an image/infographic file with no extractable text (only cover returned); its theme briefed from knowledge and flagged in the doc - source kept as drive-file since both files are present, but IBEF figures flagged for verification. Used existing 'Daily Analyses' subfolder (created by Run 1). Idempotency: only the S9&10 (Logistics) doc existed, no S11&12 doc, so created fresh Google Doc (id 1aG8J_zdaYnF5VPEwqDlD0_4D9Klf-MK66RGOET50rPw) + Gmail draft (not sent)."}, {"targetDate": "2026-06-13", "firedAt": "2026-06-12T14:03:01Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "Only 2 academic sessions scheduled for 2026-06-13 (Sector Strategic Analysis sessions 9&10 at 10:30 and 11&12 at 14:30, both SSA). Run 3 processes 1-indexed positions 3,6,9... which do not exist with fewer than 3 sessions, so nothing to generate. Runs 1 and 2 covered SSA 9&10 and 11&12 respectively (drafts confirmed present). Connector self-test passed for all three (Calendar, Drive, Gmail)."}, {"targetDate": "2026-06-14", "firedAt": "2026-06-13T13:35:02Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No events on the PGPM Batch22 - DIV C class calendar for 2026-06-14 (Sunday) \u2014 verified with both an exact-day query and a wider Sat 20:00 to Mon 06:00 IST window, both returned zero events. No academic class sessions tomorrow, so nothing to generate (no pre-reads, docs, or drafts). Connector self-test passed for all three (Calendar, Drive, Gmail). Run 1 of 3 logged with empty sessions array per the load-distribution rule."}, {"targetDate": "2026-06-14", "firedAt": "2026-06-13T13:46:38Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-14 (Sunday). Calendar query verified working (13 Jun and 15 Jun have classes; 14 Jun has none). Run 2 of 3 processes positions 2,5,8,... of sorted academic sessions; with zero sessions there was nothing to assign or generate. No Drive docs or Gmail drafts created. Step 10 logged with empty sessions array per spec."}, {"targetDate": "2026-06-14", "firedAt": "2026-06-13T14:04:02Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-14 (Sunday). All three connectors (Calendar, Drive, Gmail) passed self-test. Calendar query verified working: 13 Jun has SSA sessions 9-12, 14 Jun returns zero events. Run 3 of 3 processes positions 3,6,9,... of sorted academic sessions; with zero sessions there was nothing to assign, no pre-reads to fetch, and no docs/drafts to create. Empty run logged for completeness."}, {"targetDate": "2026-06-15", "firedAt": "2026-06-14T13:37:25Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Digital Initiatives: From Selection to Implementation", "session": "2 & 3", "preReadSource": "drive-file", "preReadTitle": "Consumer Products Process Classification Framework (APQC/IBM PCF v7.2.2, Mar 2025)", "docCreated": true, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1NgNcgwJoY9S83thPnDtyAx9GhRo-6eM6UFhRS9pzvlw/edit"}], "notes": "Tomorrow (2026-06-15) had 2 kept academic sessions sorted by start time: [1] Leading Digital Initiatives 09:00 (Sessions 2&3), [2] Leading Self People & Teams 14:30 (Sessions 11&12). Run 1 of 3 processes positions 1,4,7... -> only position 1 (Leading Digital Initiatives). Pre-read read in full from Drive PDF (APQC Consumer Products PCF). Calendar event 'Feedback - DIV C - Sector Strategic Analysis' skipped per filter (Feedback)."}, {"targetDate": "2026-06-15", "firedAt": "2026-06-14T14:00:00Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "Only 2 kept academic sessions for 2026-06-15 (Leading Digital Initiatives S2&3 at 09:00; Leading Self, People, and Teams S11&12 at 14:30). The 17:10 'Feedback - Sector Strategic Analysis' was skipped per filter. Run 3 processes sorted positions 3,6,9...; position 3 does not exist, so no sessions assigned to this run. Connector self-test passed (Calendar/Drive/Gmail). Nothing generated."}, {"targetDate": "2026-06-15", "firedAt": "2026-06-14T15:06:17Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [{"course": "Leading Self, People, and Teams", "session": "11 & 12", "preReadSource": "drive-file", "preReadTitle": "S12 (compulsory): MacArthur, H. V. (2025), 'The Power of Listening', Forbes [read from Drive PDF, Pre Reads/Session 12]; S11 (suggested, published-fallback): Wilding (2020) + Hitachi Foundation (2016), Forbes", "docCreated": false, "draftCreated": true, "docUrl": "https://docs.google.com/document/d/1l5pUSLo_ucNJzFjMW8j0IuJQHHvwMJZm1LqX2KS8TdM/edit"}], "notes": "Run 2 of 3 processes positions 2,5,8 of sessions sorted by start time. Position 2 = Leading Self, People, and Teams S11&12 (14:30). Doc already existed in Daily Analyses (created earlier this run window) -> skipped creation per idempotency (docCreated=false); Gmail draft created. Mixed sourcing: S12 compulsory from Drive PDF, S11 suggested built from published Forbes articles + theme (no Session 11 subfolder) -- flagged in doc & draft. Position 1 (Leading Digital Initiatives) handled by Run 1; 17:10 Feedback-SSA skipped per filter."}, {"targetDate": "2026-06-16", "firedAt": "2026-06-15T13:34:46Z", "run": "Run 1 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from 15 Jun to 17 Jun). Nothing to generate; empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test."}, {"targetDate": "2026-06-16", "firedAt": "2026-06-15T13:46:49Z", "run": "Run 2 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from 15 Jun straight to 17 Jun). Nothing to generate or draft; empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test."}, {"targetDate": "2026-06-16", "firedAt": "2026-06-15T14:02:00Z", "run": "Run 3 of 3", "model": "claude-opus-4-8", "status": "success", "patterns": ["scheduled-autonomy", "tool-use", "rag", "planning", "multi-agent", "idempotency", "human-in-the-loop"], "sessions": [], "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from Mon 15 Jun straight to Wed 17 Jun). Run 3 of 3 processes sorted positions 3,6,9...; with zero sessions there is nothing assigned. Empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test. Runs 1 and 2 logged the same finding."}]}
+{
+  "agent": "Daily Pre-Read Analysis",
+  "description": "Three scheduled agents that prepare MBA class pre-read analyses every evening.",
+  "patternsLegend": {
+    "scheduled-autonomy": "Runs on a cron trigger with no human action",
+    "tool-use": "Calls external tools (Calendar / Drive / Gmail) via MCP",
+    "rag": "Retrieves the real pre-read from Drive before generating",
+    "planning": "Decomposes the task: filter -> map -> find -> generate",
+    "multi-agent": "Work split round-robin across 3 staggered runs",
+    "idempotency": "Skips creating a doc that already exists for the day",
+    "human-in-the-loop": "Produces Gmail drafts, never auto-sends"
+  },
+  "runs": [
+    {
+      "targetDate": "2026-06-09",
+      "firedAt": "2026-06-08T09:59:00Z",
+      "run": "test-fire (pre-split, single routine)",
+      "model": "claude-sonnet-4-6",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "6",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Module Note - Systems Thinking (HBS 322-030)",
+          "docCreated": "reused existing (idempotency)",
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1nkynhm9k5HhHp1A4xuBrAU8wejXjS6BOjTypoPS67dw/edit"
+        }
+      ],
+      "notes": "Confirmed the remote agent can reach all 3 Google connectors unattended."
+    },
+    {
+      "targetDate": "2026-06-09",
+      "firedAt": "2026-06-08T15:11:39Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "Session 6",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Systems Thinking - HBR.pdf",
+          "docCreated": false,
+          "draftCreated": false,
+          "docUrl": "https://docs.google.com/document/d/1nkynhm9k5HhHp1A4xuBrAU8wejXjS6BOjTypoPS67dw/edit"
+        }
+      ],
+      "notes": "Run 1 = position 1 (Systems & Design Thinking S6, 10:30 IST). Idempotent skip: Daily Analyses already contained matching doc '2026-06-09 \u2014 Systems & Design Thinking S6 \u2014 Pre-Read Analysis (v2, Professor Mode)' and a matching non-test Gmail draft already existed; no new doc/draft created. Pre-read verified in Drive: Pre Reads/Session 6/Systems Thinking - HBR.pdf. Positions 2 (Leading Self S7) & 3 (BTDA S5&6) belong to Runs 2 & 3."
+    },
+    {
+      "targetDate": "2026-06-09",
+      "firedAt": "2026-06-08T18:03:34Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Self, People, and Teams",
+          "session": "7",
+          "preReadSource": "film",
+          "preReadTitle": "Twelve Angry Men (1957)",
+          "docCreated": false,
+          "draftCreated": false,
+          "docUrl": "https://docs.google.com/document/d/1LpHAdlx9upBfU97MP-HxlLi0yuEl0DRF_DWih_het-s/edit"
+        }
+      ],
+      "notes": "Assigned position 2 of 3 kept academic sessions (sorted by start time: 1=Systems Thinking S6 10:30, 2=Leading Self S7 12:00, 3=BTDA S5&6 14:30). Idempotent skip: Google Doc '2026-06-09 - Leading Self, People & Teams S7 - Pre-Read Analysis' and matching Gmail draft already existed from a prior run, so no duplicates created. No Session 7 folder in Pre Reads (folders skip 6->8); outline material is the film 'Twelve Angry Men', source=film."
+    },
+    {
+      "targetDate": "2026-06-10",
+      "firedAt": "2026-06-09T03:55:56Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Entrepreneurial Thinking",
+          "session": "1",
+          "preReadSource": "drive-file",
+          "preReadTitle": "What Makes Entrepreneurs Entrepreneurial? (Sarasvathy, UV1356) + Enacting Entrepreneurial Hustle (Kuratko et al., BH1224)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"
+        }
+      ],
+      "notes": "Run 3 processed position 3 of 4 kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 6 does not exist. Skipped 15:40 'Feedback'. ET course folder had no 'Daily Analyses' subfolder so it was created (id 11sEna9R0z3GP3cwQGktHvziBWH0dP48n). ET folder also has no 'Pre Reads' subfolder; the two assigned PDFs (exact works named in Course Outline for Sessions 1&2) were read from a classmate's shared Drive folder, flagged in the doc."
+    },
+    {
+      "targetDate": "2026-06-10",
+      "firedAt": "2026-06-09T13:39:34Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Self, People, and Teams",
+          "session": "8",
+          "preReadSource": "drive-file",
+          "preReadTitle": "How to Prepare for a Meeting Where Emotions Will Run High (Dina Denham Smith, HBR 2025, Reprint H08OQ4)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1717KKMungF5Hhx-DMlg0MAH-0JD6mAVlTjLDgz-lh1c/edit"
+        },
+        {
+          "course": "Entrepreneurial Thinking",
+          "session": "2",
+          "preReadSource": "drive-file",
+          "preReadTitle": "What Makes Entrepreneurs Entrepreneurial? (Sarasvathy, UV1356) + Enacting Entrepreneurial Hustle (Kuratko et al., BH1224)",
+          "docCreated": false,
+          "draftCreated": false,
+          "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"
+        }
+      ],
+      "notes": "Run 1 processed positions 1 and 4 of the kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 7 does not exist. Skipped 15:40 'Feedback'. Position 1 = Leading Self S8: pre-read read directly from Drive (Pre Reads > Session 8 PDF); doc + Gmail draft created. Position 4 = ET S2: SKIPPED doc/draft per Step-7 idempotency - a sibling (Run 3) already created '2026-06-10 - Entrepreneurial Thinking Session 1' in the ET Daily Analyses folder, and ET Sessions 1 & 2 share identical readings (Sarasvathy UV1356 + Kuratko BH1224) per the Course Outline, so the Session-1 analysis already covers Session 2. ET course folder still has no 'Pre Reads' subfolder."
+    },
+    {
+      "targetDate": "2026-06-10",
+      "firedAt": "2026-06-09T13:46:00Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "7",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. Jul 2024)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1zARCTBbf6K25oEqno2HkdPbiswEAVadY4rDWYJq7xps/edit"
+        }
+      ],
+      "notes": "Run 2 processed position 2 of the kept academic sessions sorted by start time (LSPT-8 09:00, Systems-7 10:30, ET-1 12:00, ET-2 14:30); position 5 does not exist. Skipped 15:40 'Feedback'. Position 2 = Systems & Design Thinking S7 (Causal Loop Diagrams, Behaviour Modes, Delays & Oscillations). Pre-read read directly from Drive (Pre Reads > Session 7 > 'Systems Thinking - HBR.pdf') - same HBS 322-030 module note the outline assigns across Sessions 6-7. Idempotency: no prior 2026-06-10 Systems doc existed (only Session 6 from 09 Jun), so created new Google Doc + Gmail draft."
+    },
+    {
+      "targetDate": "2026-06-10",
+      "firedAt": "2026-06-09T14:07:10Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Entrepreneurial Thinking",
+          "session": "1",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Sarasvathy (2005) 'What Makes Entrepreneurs Entrepreneurial?' (Darden UV1356) + Kuratko et al. (2023) 'Enacting Entrepreneurial Hustle' (Business Horizons BH1224)",
+          "docCreated": false,
+          "draftCreated": false,
+          "docUrl": "https://docs.google.com/document/d/1ecYMdGRSETQfW8JKXWkmPg5YnraFxHs3hmIFy-hnJhk/edit"
+        }
+      ],
+      "notes": "Run 3 assigned positions 3,6,9 of 4 sorted academic sessions; only position 3 existed = Entrepreneurial Thinking Session 1 (12:00, faculty Prof. Vidhula Venugopal). Idempotency: Google Doc '2026-06-10 \u2014 Entrepreneurial Thinking Session 1 \u2014 Pre-Read Analysis' and matching Gmail draft already existed (created by sibling run ~03:54-03:55 IST), so both were SKIPPED to avoid duplicates. Pre-reads (Sarasvathy + Kuratko PDFs) were read from a classmate's shared Drive folder; ET course folder still has no 'Pre Reads' subfolder (only Course Outline + Daily Analyses)."
+    },
+    {
+      "targetDate": "2026-06-11",
+      "firedAt": "2026-06-10T13:38:32Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "7",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Module Note \u2014 Systems Thinking (Harvard Business School, 9-322-030, rev. 29 Jul 2024)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1yJcUcOWWQoKziL5ox-F1V6vhB7OYKhW-rOI_aUn3Yhc/edit"
+        }
+      ],
+      "notes": "Run 1 assigned positions 1,4,7 of 2 sorted academic sessions for 2026-06-11; only position 1 existed = Systems and Design Thinking Session 7 (14:30, C3-07, faculty Dr. Bindu Kulkarni & Dr. Harit Joshi). Skipped: MCOM_DIV C S23&24 (10:30, MCOM filter). Position 2 (Leading Digital Initiatives Session 1, 16:00) left for sibling runs. No separate Session 7 pre-read folder in Drive; per Course Outline the same Module Note \u2014 Systems Thinking (HBS 9-322-030) is assigned to Sessions 6 and 7, so the PDF was read directly from Pre Reads > Session 6. Idempotency: no existing 2026-06-11 doc in Daily Analyses, so Google Doc and Gmail draft were created fresh."
+    },
+    {
+      "targetDate": "2026-06-11",
+      "firedAt": "2026-06-10T13:50:00Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Digital Initiatives: From Selection to Implementation",
+          "session": "Session 1",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Transforming Employee Performance Through Business Process Management (Sannali case, CAIS Vol. 57, Paper 14)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1uyvwk-cXxuqBGeNwuGPCqVx4eR4d4l9Q6v55j09Vfjo/edit"
+        }
+      ],
+      "notes": "Run 2 of 3 processes sorted-position 2. Tomorrow had 2 kept academic sessions after skipping MCOM S23&24: [1] Systems Thinking S7 (Run 1), [2] Leading Digital Initiatives S1 (this run). Created the 'Daily Analyses' subfolder for Leading Digital Initiatives (none existed; new id 1s-2mt8VAezL2yMJqUnCSP_yPP1XMeIGO). Pre-read read directly from Drive PDF; Google Doc + Gmail draft created. Faculty: Prof. Jyoti Jagasia."
+    },
+    {
+      "targetDate": "2026-06-11",
+      "firedAt": "2026-06-10T14:00:00Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "Only 2 kept academic sessions tomorrow (Systems Thinking S7 @14:30, Leading Digital Initiatives S1 @16:00), handled by Runs 1 & 2. Run 3 processes positions 3,6,9...; position 3 does not exist, so no sessions assigned. MCOM S23&24 skipped per filter. Connector self-test passed for Calendar, Drive, and Gmail."
+    },
+    {
+      "targetDate": "2026-06-12",
+      "firedAt": "2026-06-11T13:40:03Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Self, People, and Teams",
+          "session": "Sessions 9 & 10",
+          "preReadSource": "published-fallback",
+          "preReadTitle": "Emotional Agility (David & Congleton, HBR 2014) + How to Play to Your Strengths / Reflected Best Self (Roberts et al., HBR 2005) + instrumental vs terminal values",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1TgZot868GVmORA3D-6WS3uUZ4s2gVNCCv0dlqHqPu1A/edit"
+        },
+        {
+          "course": "AI and Analytics Foundation",
+          "session": "Sessions 1 & 2",
+          "preReadSource": "none",
+          "preReadTitle": "No assigned reading (Course Outline = Class Discussion); themes: 'Intelligent Systems: What AI Actually Is' & 'The AI Revolution So Far'",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1-8ZHgJuv-dsvuQYLPCS9hLo-TGR4MEhQqbQZzwvF8-w/edit"
+        }
+      ],
+      "notes": "Run 1 processed positions 1 and 4 of 4 sorted academic sessions for 2026-06-12 (1=Leading Self S9&10 09:00, 2=Systems Thinking S9 12:00, 3=Systems Thinking S10 14:30, 4=AI & Analytics S1&2 16:00); position 7 does not exist. Positions 2 & 3 left for sibling runs. Position 1 (Leading Self S9&10): Pre Reads/Session 9 and Session 10 folders are EMPTY; Course Outline assigns published HBR articles (David & Congleton Emotional Agility; Roberts et al. How to Play to Your Strengths) so analysis built from published versions, flagged published-fallback. Position 4 (AI & Analytics S1&2): Course Outline marks both sessions 'Class Discussion' with no prescribed reading (only Session 10 Mercor case has a pre-read), so theme-based brief, source=none, flagged in doc. Created new 'Daily Analyses' subfolder for AI and Analytics Foundation (none existed; new id 1I-YOW3aYBSdEpa5SXuCE3bL3aPV8Myo7). Both Google Docs + Gmail drafts created fresh (no prior 2026-06-12 docs)."
+    },
+    {
+      "targetDate": "2026-06-12",
+      "firedAt": "2026-06-11T13:50:16Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "9",
+          "preReadSource": "drive-file",
+          "preReadTitle": "St. Jude ChildCare: Applying Systems Thinking in Pediatric Cancer (Ivey W42201, Kamath/Kulkarni/Nagaraj, 2025)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/12X6RYikrFCSSHTUDQKoVuMxdanv1hsOIkRVrLD7UmJY/edit"
+        }
+      ],
+      "notes": "Run 2 of 3 assignment = sorted positions 2,5,8... Of 4 academic sessions tomorrow (Leading Self S9&10 @09:00; Systems Thinking S9 @12:00; Systems Thinking S10 @14:30; AI&Analytics 1&2 @16:00), only position 2 = Systems Thinking Session 9. No 'Session 9' Pre Reads sub-folder existed; Course Outline names the Session 9 integrative case, found as a real Drive PDF and read directly. Quiz 1 falls in this session. Idempotency: no prior 2026-06-12 doc in Daily Analyses."
+    },
+    {
+      "targetDate": "2026-06-12",
+      "firedAt": "2026-06-11T14:05:00Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Systems and Design Thinking",
+          "session": "10",
+          "preReadSource": "none",
+          "preReadTitle": "Lab Session: System Analysis of Projects (no assigned reading per Course Outline)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1EENRwjijf_sPW0Q71iCjNk3c3wp8B95ZK8VUYulj0cg/edit"
+        }
+      ],
+      "notes": "Run 3 of 3 processed position 3 of 4 sorted academic sessions = Systems and Design Thinking Session 10 (14:30, simulation lab). Outline marks S10 a Lab Session with no pre-read; rule-C theme brief built from session theme + Systems Thinking knowledge, flagged. Doc id 1EENRwjijf_sPW0Q71iCjNk3c3wp8B95ZK8VUYulj0cg created in Daily Analyses; Gmail draft created (not sent). Positions 1,2,4 handled by Runs 1/2."
+    },
+    {
+      "targetDate": "2026-06-13",
+      "firedAt": "2026-06-12T13:37:56Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Sector Strategic Analysis",
+          "session": "9 & 10",
+          "preReadSource": "drive-file",
+          "preReadTitle": "From cost center to competitive advantage: Modernizing reverse logistics with AI (McKinsey, Feb 2026) + Industry report on logistics market in India (CRISIL, 27 Sep 2025)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1abT8dWNHekI1nqfsaN3yvmbo2ZhEfW1o94jcYfIXUDI/edit"
+        }
+      ],
+      "notes": "Sector: Logistics (Sessions 9-10 per Course Outline; Guest Mr. Girija Shankar, Maersk; Faculty Prof. Bindu Kulkarni). Run 1 of 3 processes sorted positions 1,4,7...; only position 1 = SSA Sessions 9&10 assigned this run. Sessions 11&12 (also SSA) left for Run 2. Created new 'Daily Analyses' subfolder in the SSA course folder (none existed). Both pre-read PDFs read directly from Drive."
+    },
+    {
+      "targetDate": "2026-06-13",
+      "firedAt": "2026-06-12T13:49:00Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Sector Strategic Analysis",
+          "session": "11 & 12",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Vision 2030: India's rise as a global force in consumer electronics and durables (CII-EY Parthenon, 2024) + India's electronics manufacturing and export market (IBEF, 2026)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1aG8J_zdaYnF5VPEwqDlD0_4D9Klf-MK66RGOET50rPw/edit"
+        }
+      ],
+      "notes": "Sector: Consumer Electronics & Durables (Sessions 11-12 per Course Outline; Guest Dr. Muralikrishnan, Xiaomi; Faculty Prof. Ravi Roshan). Run 2 of 3 processes sorted positions 2,5,8...; of 2 academic sessions tomorrow (both SSA: S9&10 @10:30 Run 1, S11&12 @14:30) only position 2 = SSA Sessions 11&12 assigned this run. Pre Reads folder is organised by SECTOR not 'Session N'; outline maps Sessions 11-12 to Consumer Electronics. The CII-EY Vision 2030 PDF was read IN FULL from Drive. The IBEF PDF exists in Drive but is an image/infographic file with no extractable text (only cover returned); its theme briefed from knowledge and flagged in the doc - source kept as drive-file since both files are present, but IBEF figures flagged for verification. Used existing 'Daily Analyses' subfolder (created by Run 1). Idempotency: only the S9&10 (Logistics) doc existed, no S11&12 doc, so created fresh Google Doc (id 1aG8J_zdaYnF5VPEwqDlD0_4D9Klf-MK66RGOET50rPw) + Gmail draft (not sent)."
+    },
+    {
+      "targetDate": "2026-06-13",
+      "firedAt": "2026-06-12T14:03:01Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "Only 2 academic sessions scheduled for 2026-06-13 (Sector Strategic Analysis sessions 9&10 at 10:30 and 11&12 at 14:30, both SSA). Run 3 processes 1-indexed positions 3,6,9... which do not exist with fewer than 3 sessions, so nothing to generate. Runs 1 and 2 covered SSA 9&10 and 11&12 respectively (drafts confirmed present). Connector self-test passed for all three (Calendar, Drive, Gmail)."
+    },
+    {
+      "targetDate": "2026-06-14",
+      "firedAt": "2026-06-13T13:35:02Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No events on the PGPM Batch22 - DIV C class calendar for 2026-06-14 (Sunday) \u2014 verified with both an exact-day query and a wider Sat 20:00 to Mon 06:00 IST window, both returned zero events. No academic class sessions tomorrow, so nothing to generate (no pre-reads, docs, or drafts). Connector self-test passed for all three (Calendar, Drive, Gmail). Run 1 of 3 logged with empty sessions array per the load-distribution rule."
+    },
+    {
+      "targetDate": "2026-06-14",
+      "firedAt": "2026-06-13T13:46:38Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-14 (Sunday). Calendar query verified working (13 Jun and 15 Jun have classes; 14 Jun has none). Run 2 of 3 processes positions 2,5,8,... of sorted academic sessions; with zero sessions there was nothing to assign or generate. No Drive docs or Gmail drafts created. Step 10 logged with empty sessions array per spec."
+    },
+    {
+      "targetDate": "2026-06-14",
+      "firedAt": "2026-06-13T14:04:02Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-14 (Sunday). All three connectors (Calendar, Drive, Gmail) passed self-test. Calendar query verified working: 13 Jun has SSA sessions 9-12, 14 Jun returns zero events. Run 3 of 3 processes positions 3,6,9,... of sorted academic sessions; with zero sessions there was nothing to assign, no pre-reads to fetch, and no docs/drafts to create. Empty run logged for completeness."
+    },
+    {
+      "targetDate": "2026-06-15",
+      "firedAt": "2026-06-14T13:37:25Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Digital Initiatives: From Selection to Implementation",
+          "session": "2 & 3",
+          "preReadSource": "drive-file",
+          "preReadTitle": "Consumer Products Process Classification Framework (APQC/IBM PCF v7.2.2, Mar 2025)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1NgNcgwJoY9S83thPnDtyAx9GhRo-6eM6UFhRS9pzvlw/edit"
+        }
+      ],
+      "notes": "Tomorrow (2026-06-15) had 2 kept academic sessions sorted by start time: [1] Leading Digital Initiatives 09:00 (Sessions 2&3), [2] Leading Self People & Teams 14:30 (Sessions 11&12). Run 1 of 3 processes positions 1,4,7... -> only position 1 (Leading Digital Initiatives). Pre-read read in full from Drive PDF (APQC Consumer Products PCF). Calendar event 'Feedback - DIV C - Sector Strategic Analysis' skipped per filter (Feedback)."
+    },
+    {
+      "targetDate": "2026-06-15",
+      "firedAt": "2026-06-14T14:00:00Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "Only 2 kept academic sessions for 2026-06-15 (Leading Digital Initiatives S2&3 at 09:00; Leading Self, People, and Teams S11&12 at 14:30). The 17:10 'Feedback - Sector Strategic Analysis' was skipped per filter. Run 3 processes sorted positions 3,6,9...; position 3 does not exist, so no sessions assigned to this run. Connector self-test passed (Calendar/Drive/Gmail). Nothing generated."
+    },
+    {
+      "targetDate": "2026-06-15",
+      "firedAt": "2026-06-14T15:06:17Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Self, People, and Teams",
+          "session": "11 & 12",
+          "preReadSource": "drive-file",
+          "preReadTitle": "S12 (compulsory): MacArthur, H. V. (2025), 'The Power of Listening', Forbes [read from Drive PDF, Pre Reads/Session 12]; S11 (suggested, published-fallback): Wilding (2020) + Hitachi Foundation (2016), Forbes",
+          "docCreated": false,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1l5pUSLo_ucNJzFjMW8j0IuJQHHvwMJZm1LqX2KS8TdM/edit"
+        }
+      ],
+      "notes": "Run 2 of 3 processes positions 2,5,8 of sessions sorted by start time. Position 2 = Leading Self, People, and Teams S11&12 (14:30). Doc already existed in Daily Analyses (created earlier this run window) -> skipped creation per idempotency (docCreated=false); Gmail draft created. Mixed sourcing: S12 compulsory from Drive PDF, S11 suggested built from published Forbes articles + theme (no Session 11 subfolder) -- flagged in doc & draft. Position 1 (Leading Digital Initiatives) handled by Run 1; 17:10 Feedback-SSA skipped per filter."
+    },
+    {
+      "targetDate": "2026-06-16",
+      "firedAt": "2026-06-15T13:34:46Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from 15 Jun to 17 Jun). Nothing to generate; empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test."
+    },
+    {
+      "targetDate": "2026-06-16",
+      "firedAt": "2026-06-15T13:46:49Z",
+      "run": "Run 2 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from 15 Jun straight to 17 Jun). Nothing to generate or draft; empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test."
+    },
+    {
+      "targetDate": "2026-06-16",
+      "firedAt": "2026-06-15T14:02:00Z",
+      "run": "Run 3 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [],
+      "notes": "No academic class sessions on the PGPM Batch22 DIV C calendar for 2026-06-16 (schedule jumps from Mon 15 Jun straight to Wed 17 Jun). Run 3 of 3 processes sorted positions 3,6,9...; with zero sessions there is nothing assigned. Empty run logged per run-assignment rule. All three connectors (Calendar, Drive, Gmail) passed self-test. Runs 1 and 2 logged the same finding."
+    },
+    {
+      "targetDate": "2026-06-17",
+      "firedAt": "2026-06-16T13:37:49Z",
+      "run": "Run 1 of 3",
+      "model": "claude-opus-4-8",
+      "status": "success",
+      "patterns": [
+        "scheduled-autonomy",
+        "tool-use",
+        "rag",
+        "planning",
+        "multi-agent",
+        "idempotency",
+        "human-in-the-loop"
+      ],
+      "sessions": [
+        {
+          "course": "Leading Digital Initiatives",
+          "session": "4 & 5",
+          "preReadSource": "none",
+          "preReadTitle": "No assigned article \u2014 session theme: BPMN Basics (S4) + Applying BPM case study + Quiz 1 (S5)",
+          "docCreated": true,
+          "draftCreated": true,
+          "docUrl": "https://docs.google.com/document/d/1Ky_m4EtNGrN2iTBB5rKWoXw1ct-soGcP8CFKurMlIes/edit"
+        }
+      ],
+      "notes": "Run 1 processed position 1 of 2 kept academic sessions (LDI S4&5 @09:00; BTDA S7&8 @16:00 left for sibling runs). MCOM S25&26 skipped per filter. No Session 4/5 pre-read folder and outline assigns no article to these sessions, so analysis built from session theme (rule C, flagged). Doc created in Daily Analyses; Gmail draft created (not sent)."
+    }
+  ]
+}
